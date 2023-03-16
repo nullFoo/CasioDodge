@@ -270,6 +270,8 @@ void DrawProjectiles()
             y1 = projectiles[i].y;
             x2 = projectiles[i].x + projectiles[i].xVelocity;
             y2 = projectiles[i].y + projectiles[i].yVelocity;
+            Bdisp_SetPoint_VRAM(x1, y1, 1);
+            Bdisp_SetPoint_VRAM(x2, y2, 1);
 
             dx = abs(x2 - x1);
             dy = abs(y2 - y1);
@@ -584,7 +586,7 @@ void NextProjectiles() {
             maxProjectiles = 32;
             break;
         case 2:
-            maxProjectiles = 10;
+            maxProjectiles = 15;
             break;
         default:
             maxProjectiles = 16;
