@@ -219,6 +219,18 @@ float Signf(float x) {
     if (x < 0) return -1;
     return 0;
 }
+int Max(int a, int b) {
+    if(a > b)
+        return a;
+    else
+        return b;
+}
+int Min(int a, int b) {
+    if(a < b)
+        return a;
+    else
+        return b;
+}
 
 void AppQuit()
 {
@@ -238,11 +250,64 @@ void AppQuit()
 /** Draws the projectils */
 void DrawProjectiles()
 {   
+    float x1;
+    float y1;
+    float x2;
+    float y2;
+    float dx;
+    float dy;
+    int x;
+    int y;
+    int decide;
+    int pk;
+    int j;
+
     size_t i;
     for (i = 0; i < 128; i++)
     {
         if(projectiles[i].enabled) {
-            Bdisp_SetPoint_VRAM((int)(projectiles[i].x), (int)(projectiles[i].y), 1);
+            x1 = projectiles[i].x;
+            y1 = projectiles[i].y;
+            x2 = projectiles[i].x + projectiles[i].xVelocity;
+            y2 = projectiles[i].y + projectiles[i].yVelocity;
+
+            dx = abs(x2 - x1);
+            dy = abs(y2 - y1);
+
+            decide = (dx > dy);
+            
+            pk = 2 * dy - dx;
+            for (j = 0; j <= dx; j++) {
+                Bdisp_SetPoint_VRAM(x1, y1, 1);
+                
+                // checking either to decrement or increment the
+                // value if we have to plot from (0,100) to (100,0)
+                x1 < x2 ? x1++ : x1--;
+                if (pk < 0) {
+                    // decision value will decide to plot
+                    // either  x1 or y1 in x's position
+                    if (decide == 0) {
+                        // putpixel(x1, y1, RED);
+                        pk = pk + 2 * dy;
+                    }
+                    else {
+                        //(y1,x1) is passed in xt
+                        // putpixel(y1, x1, YELLOW);
+                        pk = pk + 2 * dy;
+                    }
+                }
+                else {
+                    y1 < y2 ? y1++ : y1--;
+                    if (decide == 0) {
+        
+                        // putpixel(x1, y1, RED);
+                    }
+                    else {
+                        //  putpixel(y1, x1, YELLOW);
+                    }
+                    pk = pk + 2 * dy - 2 * dx;
+                }
+            }
         }
     }
 }
@@ -293,6 +358,22 @@ void SpawnProjectile(float x, float y, float xVelocity, float yVelocity, float x
     
 }
 
+int IsCollidingWithPlayer(int x, int y) {
+    if(x == playerX && y == playerY) return true;
+    if(x == playerX) {
+        if(y == playerY) return true;
+        if(y == playerY + 1) return true;
+        if(y == playerY - 1) return true;
+    }
+    if(y == playerY) {
+        if(x == playerX) return true;
+        if(x == playerX + 1) return true;
+        if(x == playerX - 1) return true;
+    }
+
+    return false;
+}
+
 #pragma region Timer functions
 
 /** Timer #2: Renders screen */
@@ -313,30 +394,57 @@ void RenderScreen()
 }
 
 void MoveProjectile(int arrayIndex, float x1, float y1, float x2, float y2) {
-    int m_new = 2 * (y2 - y1);
-    int slope_error_new = m_new - (x2 - x1);
-    int x;
-    int y;
-    for (x = x1, y = y1; x <= x2; x++) {
+    float dx;
+    float dy;
+    int decide;
+    int pk;
+    int j;
+
+    dx = abs(x2 - x1);
+    dy = abs(y2 - y1);
+
+    decide = (dx > dy);
+    
+    pk = 2 * dy - dx;
+    for (j = 0; j <= dx; j++) {
         // check for collision
-        if(x == playerX && y == playerY) {
+        if(IsCollidingWithPlayer((int)x1, (int)y1)) {
             // damage player
             playerHealth -= 1;
             // destroy projectile
             projectiles[arrayIndex].enabled = false;
             return;
         }
+        
+        // checking either to decrement or increment the
+        // value if we have to plot from (0,100) to (100,0)
+        x1 < x2 ? x1++ : x1--;
+        if (pk < 0) {
+            // decision value will decide to plot
+            // either  x1 or y1 in x's position
+            if (decide == 0) {
+                // putpixel(x1, y1, RED);
+                pk = pk + 2 * dy;
+            }
+            else {
+                //(y1,x1) is passed in xt
+                // putpixel(y1, x1, YELLOW);
+                pk = pk + 2 * dy;
+            }
+        }
+        else {
+            y1 < y2 ? y1++ : y1--;
+            if (decide == 0) {
 
-        // Add slope to increment angle formed
-        slope_error_new += m_new;
- 
-        // Slope error reached limit, time to
-        // increment y and update slope error.
-        if (slope_error_new >= 0) {
-            y++;
-            slope_error_new -= 2 * (x2 - x1);
+                // putpixel(x1, y1, RED);
+            }
+            else {
+                //  putpixel(y1, x1, YELLOW);
+            }
+            pk = pk + 2 * dy - 2 * dx;
         }
     }
+
     projectiles[arrayIndex].x = x2;
     projectiles[arrayIndex].y = y2;
 }
