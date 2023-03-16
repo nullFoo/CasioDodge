@@ -1,0 +1,21 @@
+{
+    "configurations": [
+        {
+            "name": "CASIO fx-9860G",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "C:\\Program Files\\CASIO\\fx-9860G SDK\\OS\\FX\\include",
+                "C:\\Program Files (x86)\\CASIO\\fx-9860G SDK\\OS\\FX\\include",
+                "C:\\Program Files\\CASIO\\fx-9860G SDK\\OS\\SH\\include",
+                "C:\\Program Files (x86)\\CASIO\\fx-9860G SDK\\OS\\SH\\include"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "cStandard": "c89"
+        }
+    ],
+    "version": 4
+}

@@ -1,0 +1,2315 @@
+SH SERIES C/C++ Compiler (Ver. 6.0C)                                                                 16-Mar-2023 17:13:34  PAGE    1
+
+************ OBJECT LISTING ************
+
+FILE NAME: D:\_Extra Space\CalculatorProjects\Dodge\Dodge.c
+
+SCT OFFSET   CODE       C LABEL     INSTRUCTION OPERAND    COMMENT
+
+         Dodge.c     1    
+         Dodge.c     2    // Import some libraries
+         Dodge.c     3    #include "stdio.h"    // Standard IO
+         Dodge.c     4    #include <stdlib.h>
+         Dodge.c     5    #include "fxlib.h"    // CASIO fx-9860G SDK
+         Dodge.c     6    #include "dispbios.h" // Display BIOS
+         Dodge.c     7    #include "timer.h"    // Timer
+         Dodge.c     8    
+         Dodge.c     9    #pragma region KeyFixStuffMikeySentMe
+         Dodge.c    10    
+         Dodge.c    11    #define __KEYBIOS_H__
+         Dodge.c    12    #define KEY_CHAR_0 71
+         Dodge.c    13    #define KEY_CHAR_1 72
+         Dodge.c    14    #define KEY_CHAR_2 62
+         Dodge.c    15    #define KEY_CHAR_3 52
+         Dodge.c    16    #define KEY_CHAR_4 73
+         Dodge.c    17    #define KEY_CHAR_5 63
+         Dodge.c    18    #define KEY_CHAR_6 53
+         Dodge.c    19    #define KEY_CHAR_7 74
+         Dodge.c    20    #define KEY_CHAR_8 64
+         Dodge.c    21    #define KEY_CHAR_9 54
+         Dodge.c    22    #define KEY_CHAR_DP 61
+         Dodge.c    23    #define KEY_CHAR_EXP 51
+         Dodge.c    24    #define KEY_CHAR_PMINUS 41
+         Dodge.c    25    #define KEY_CHAR_PLUS 42
+         Dodge.c    26    #define KEY_CHAR_MINUS 32
+         Dodge.c    27    #define KEY_CHAR_MULT 43
+         Dodge.c    28    #define KEY_CHAR_DIV 33
+         Dodge.c    29    #define KEY_CHAR_FRAC 75
+         Dodge.c    30    #define KEY_CHAR_LPAR 55
+         Dodge.c    31    #define KEY_CHAR_RPAR 45
+         Dodge.c    32    #define KEY_CHAR_COMMA 35
+         Dodge.c    33    #define KEY_CHAR_STORE 25
+         Dodge.c    34    #define KEY_CHAR_LOG 66
+         Dodge.c    35    #define KEY_CHAR_LN 56
+         Dodge.c    36    #define KEY_CHAR_SIN 46
+         Dodge.c    37    #define KEY_CHAR_COS 36
+         Dodge.c    38    #define KEY_CHAR_TAN 26
+         Dodge.c    39    #define KEY_CHAR_SQUARE 67
+         Dodge.c    40    #define KEY_CHAR_POW 57
+         Dodge.c    41    #define KEY_CTRL_EXE 31
+         Dodge.c    42    #define KEY_CTRL_DEL 44
+         Dodge.c    43    #define KEY_CTRL_AC 32
+         Dodge.c    44    #define KEY_CTRL_FD 65
+         Dodge.c    45    #define KEY_CTRL_EXIT 47
+         Dodge.c    46    #define KEY_CTRL_SHIFT 78
+         Dodge.c    47    #define KEY_CTRL_ALPHA 77
+         Dodge.c    48    #define KEY_CTRL_OPTN 68
+         Dodge.c    49    #define KEY_CTRL_VARS 58
+         Dodge.c    50    #define KEY_CTRL_UP 28
+         Dodge.c    51    #define KEY_CTRL_DOWN 37
+         Dodge.c    52    #define KEY_CTRL_LEFT 38
+         Dodge.c    53    #define KEY_CTRL_RIGHT 27
+         Dodge.c    54    #define KEY_CTRL_F1 79
+
+
+
+
+SH SERIES C/C++ Compiler (Ver. 6.0C)                                                                 16-Mar-2023 17:13:34  PAGE    2
+
+
+SCT OFFSET   CODE       C LABEL     INSTRUCTION OPERAND    COMMENT
+
+         Dodge.c    55    #define KEY_CTRL_F2 69
+         Dodge.c    56    #define KEY_CTRL_F3 59
+         Dodge.c    57    #define KEY_CTRL_F4 49
+         Dodge.c    58    #define KEY_CTRL_F5 39
+         Dodge.c    59    #define KEY_CTRL_F6 29
+         Dodge.c    60    #define KEY_CTRL_MENU 48
+         Dodge.c    61    #ifndef OS2Change
+         Dodge.c    62    #define OS2Change
+         Dodge.c    63    #ifndef OS2Change_GetOS2
+         Dodge.c    64    #define OS2Change_GetOS2
+         Dodge.c    65    typedef int(*sc_i2cp2sip)(char*, char*, short int*, short int*);
+         Dodge.c    66    const unsigned int sc0015[] = { 0xD201D002, 0x422B0009, 0x80010070, 0x0015 };
+         Dodge.c    67    #define GlibGetOSVersionInfo (*(sc_i2cp2sip)sc0015)
+         Dodge.c    68    int OSVersionAsInt(void)
+P   00000000              _OSVersionAsInt:                 ; function: OSVersionAsInt
+                                                           ; frame size=20
+    00000000 4F22                   STS.L       PR,@-R15
+    00000002 7FF0                   ADD         #-16,R15
+         Dodge.c    69    {
+         Dodge.c    70    unsigned char mainversion;
+         Dodge.c    71    unsigned char minorversion;
+         Dodge.c    72    unsigned short release;
+         Dodge.c    73    unsigned short build;
+         Dodge.c    74    GlibGetOSVersionInfo( &mainversion, &minorversion, &release, &build );
+    00000004 D346                   MOV.L       L617+6,R3  ; _sc0015
+    00000006 67F3                   MOV         R15,R7
+    00000008 770C                   ADD         #12,R7
+    0000000A 66F3                   MOV         R15,R6
+    0000000C 7608                   ADD         #8,R6
+    0000000E 65F3                   MOV         R15,R5
+    00000010 7504                   ADD         #4,R5
+    00000012 430B                   JSR         @R3
+    00000014 64F3                   MOV         R15,R4
+         Dodge.c    75    return ( ( mainversion << 24 ) & 0xFF000000 ) | ( ( minorversion << 16 ) & 0x00FF0000 ) | ( release & 0x00
+                         +00FFFF );
+    00000016 60F0                   MOV.B       @R15,R0
+    00000018 D342                   MOV.L       L617+10,R3 ; H'FF000000
+    0000001A 600C                   EXTU.B      R0,R0
+    0000001C D242                   MOV.L       L617+14,R2 ; H'00FF0000
+    0000001E 4028                   SHLL16      R0
+    00000020 4018                   SHLL8       R0
+    00000022 2039                   AND         R3,R0
+    00000024 6103                   MOV         R0,R1
+    00000026 84F4                   MOV.B       @(4,R15),R0
+    00000028 600C                   EXTU.B      R0,R0
+    0000002A 4028                   SHLL16      R0
+    0000002C 2029                   AND         R2,R0
+    0000002E 201B                   OR          R1,R0
+    00000030 6103                   MOV         R0,R1
+    00000032 85F4                   MOV.W       @(8,R15),R0
+    00000034 600D                   EXTU.W      R0,R0
+         Dodge.c    76    }
+    00000036 7F10                   ADD         #16,R15
+    00000038 4F26                   LDS.L       @R15+,PR
+    0000003A 000B                   RTS
+    0000003C 201B                   OR          R1,R0
+         Dodge.c    77    #define isOS2 (OSVersionAsInt() >= 0x02020000)
+
+
+
+
+SH SERIES C/C++ Compiler (Ver. 6.0C)                                                                 16-Mar-2023 17:13:34  PAGE    3
+
+
+SCT OFFSET   CODE       C LABEL     INSTRUCTION OPERAND    COMMENT
+
+         Dodge.c    78    #define OS2(x,y) ((OSVersionAsInt() >= 0x02020000)?y:x)
+         Dodge.c    79    #endif
+         Dodge.c    80    #ifndef OS2Change_Keyboard
+         Dodge.c    81    #define OS2Change_Keyboard
+         Dodge.c    82    void delay(void)
+    0000003E              _delay:                          ; function: delay
+                                                           ; frame size=0
+         Dodge.c    83    {
+         Dodge.c    84    char i;
+         Dodge.c    85    for (i=0; i<5; i++){};
+    0000003E E505                   MOV         #5,R5
+    00000040 E400                   MOV         #0,R4
+    00000042              L523:                             
+    00000042 7401                   ADD         #1,R4
+    00000044 634E                   EXTS.B      R4,R3
+    00000046 3353                   CMP/GE      R5,R3
+    00000048 8BFB                   BF          L523
+         Dodge.c    86    }
+    0000004A 000B                   RTS
+    0000004C 0009                   NOP
+         Dodge.c    87    unsigned char CheckKeyRow(unsigned char code)
+    0000004E              _CheckKeyRow:                    ; function: CheckKeyRow
+                                                           ; frame size=32
+         Dodge.c    88    {
+         Dodge.c    89    unsigned char result=0;
+         Dodge.c    90    short*PORTB_CTRL=(void*)0xA4000102;
+         Dodge.c    91    short*PORTM_CTRL=(void*)0xA4000118;
+         Dodge.c    92    char*PORTB=(void*)0xA4000122;
+         Dodge.c    93    char*PORTM=(void*)0xA4000138;
+         Dodge.c    94    char*PORTA=(void*)0xA4000120;
+         Dodge.c    95    short smask;
+         Dodge.c    96    char cmask;
+         Dodge.c    97    unsigned char column, row;
+         Dodge.c    98    column = code>>4;
+    0000004E 634C                   EXTU.B      R4,R3
+    00000050 2FE6                   MOV.L       R14,@-R15
+         Dodge.c    99    row = code &0x0F;
+    00000052 E50F                   MOV         #15,R5
+    00000054 2FD6                   MOV.L       R13,@-R15
+    00000056 4309                   SHLR2       R3
+    00000058 2FC6                   MOV.L       R12,@-R15
+    0000005A 2549                   AND         R4,R5
+    0000005C 2FB6                   MOV.L       R11,@-R15
+    0000005E 4309                   SHLR2       R3
+    00000060 2FA6                   MOV.L       R10,@-R15
+         Dodge.c   100    smask = 0x0003 << (( row %8)*2);
+    00000062 665C                   EXTU.B      R5,R6
+    00000064 2F96                   MOV.L       R9,@-R15
+    00000066 6063                   MOV         R6,R0
+    00000068 4F22                   STS.L       PR,@-R15
+    0000006A 4011                   CMP/PZ      R0
+    0000006C 7FFC                   ADD         #-4,R15
+    0000006E 2F30                   MOV.B       R3,@R15
+    00000070 8B01                   BF          L524
+    00000072 A005                   BRA         L525
+    00000074 C907                   AND         #7,R0
+    00000076              L524:                             
+
+
+
+
+SH SERIES C/C++ Compiler (Ver. 6.0C)                                                                 16-Mar-2023 17:13:34  PAGE    4
+
+
+SCT OFFSET   CODE       C LABEL     INSTRUCTION OPERAND    COMMENT
+
+    00000076 6007                   NOT         R0,R0
+    00000078 7001                   ADD         #1,R0
+    0000007A C907                   AND         #7,R0
+    0000007C 6007                   NOT         R0,R0
+    0000007E 7001                   ADD         #1,R0
+    00000080              L525:                             
+         Dodge.c   101    cmask = ~( 1 << ( row %8) );
+         Dodge.c   102    if(row <8)
+    00000080 994B                   MOV.W       L617,R9    ; H'AAAA
+    00000082 E208                   MOV         #8,R2
+    00000084 DB29                   MOV.L       L617+18,R11; H'A4000102
+    00000086 6403                   MOV         R0,R4
+    00000088 9D48                   MOV.W       L617+2,R13 ; H'FF00
+    0000008A E503                   MOV         #3,R5
+    0000008C DE28                   MOV.L       L617+22,R14; H'A4000118
+    0000008E EA01                   MOV         #1,R10
+    00000090 4000                   SHLL        R0
+    00000092 450C                   SHAD        R0,R5
+    00000094 4A4C                   SHAD        R4,R10
+    00000096 6AA7                   NOT         R10,R10
+    00000098 6CB3                   MOV         R11,R12
+    0000009A 3623                   CMP/GE      R2,R6
+    0000009C 8D0D                   BT/S        L526
+    0000009E 7C36                   ADD         #54,R12
+         Dodge.c   103    {
+         Dodge.c   104      *PORTB_CTRL = 0xAAAA ^ smask;
+    000000A0 259A                   XOR         R9,R5
+    000000A2 2B51                   MOV.W       R5,@R11
+         Dodge.c   105      *PORTM_CTRL = (*PORTM_CTRL & 0xFF00 ) | 0x00AA;
+    000000A4 60E1                   MOV.W       @R14,R0
+    000000A6 20D9                   AND         R13,R0
+    000000A8 CBAA                   OR          #170,R0
+         Dodge.c   106      delay();
+    000000AA BFC8                   BSR         _delay
+    000000AC 2E01                   MOV.W       R0,@R14
+         Dodge.c   107      *PORTB = cmask;
+    000000AE D221                   MOV.L       L617+26,R2 ; H'A4000122
+    000000B0 22A0                   MOV.B       R10,@R2
+         Dodge.c   108      *PORTM = (*PORTM & 0xF0 ) | 0x0F;
+    000000B2 60C0                   MOV.B       @R12,R0
+    000000B4 C9F0                   AND         #240,R0
+    000000B6 A00D                   BRA         L613
+    000000B8 CB0F                   OR          #15,R0
+    000000BA              L526:                             
+         Dodge.c   109    }
+         Dodge.c   110    else
+         Dodge.c   111    {
+         Dodge.c   112      *PORTB_CTRL = 0xAAAA;
+    000000BA 2B91                   MOV.W       R9,@R11
+         Dodge.c   113      *PORTM_CTRL = ((*PORTM_CTRL & 0xFF00 ) | 0x00AA)  ^ smask;
+    000000BC 60E1                   MOV.W       @R14,R0
+    000000BE 20D9                   AND         R13,R0
+    000000C0 CBAA                   OR          #170,R0
+    000000C2 205A                   XOR         R5,R0
+         Dodge.c   114      delay();
+    000000C4 BFBB                   BSR         _delay
+    000000C6 2E01                   MOV.W       R0,@R14
+
+
+
+
+SH SERIES C/C++ Compiler (Ver. 6.0C)                                                                 16-Mar-2023 17:13:34  PAGE    5
+
+
+SCT OFFSET   CODE       C LABEL     INSTRUCTION OPERAND    COMMENT
+
+         Dodge.c   115      *PORTB = 0xFF;
+    000000C8 D31A                   MOV.L       L617+26,R3 ; H'A4000122
+    000000CA E2FF                   MOV         #-1,R2
+    000000CC 2320                   MOV.B       R2,@R3
+         Dodge.c   116      *PORTM = (*PORTM & 0xF0 ) | cmask;
+    000000CE 60C0                   MOV.B       @R12,R0
+    000000D0 C9F0                   AND         #240,R0
+    000000D2 20AB                   OR          R10,R0
+    000000D4              L613:                             
+         Dodge.c   117    }
+         Dodge.c   118    
+         Dodge.c   119    delay();
+    000000D4 BFB3                   BSR         _delay
+    000000D6 2C00                   MOV.B       R0,@R12
+         Dodge.c   120    result = (~(*PORTA))>>column & 1;
+    000000D8 D317                   MOV.L       L617+30,R3 ; H'A4000120
+    000000DA 6030                   MOV.B       @R3,R0
+    000000DC 62F0                   MOV.B       @R15,R2
+    000000DE 6007                   NOT         R0,R0
+    000000E0 622C                   EXTU.B      R2,R2
+    000000E2 622B                   NEG         R2,R2
+    000000E4 402C                   SHAD        R2,R0
+    000000E6 C901                   AND         #1,R0
+         Dodge.c   121    delay();
+    000000E8 BFA9                   BSR         _delay
+    000000EA 2F00                   MOV.B       R0,@R15
+         Dodge.c   122    *PORTB_CTRL = 0xAAAA;
+    000000EC 2B91                   MOV.W       R9,@R11
+         Dodge.c   123    *PORTM_CTRL = (*PORTM_CTRL & 0xFF00 ) | 0x00AA;
+    000000EE 60E1                   MOV.W       @R14,R0
+    000000F0 20D9                   AND         R13,R0
+    000000F2 CBAA                   OR          #170,R0
+         Dodge.c   124    delay();
+    000000F4 BFA3                   BSR         _delay
+    000000F6 2E01                   MOV.W       R0,@R14
+         Dodge.c   125    *PORTB_CTRL = 0x5555;
+    000000F8 9211                   MOV.W       L617+4,R2  ; H'5555
+    000000FA 2B21                   MOV.W       R2,@R11
+         Dodge.c   126    *PORTM_CTRL = (*PORTM_CTRL & 0xFF00 ) | 0x0055;
+    000000FC 60E1                   MOV.W       @R14,R0
+    000000FE 20D9                   AND         R13,R0
+    00000100 CB55                   OR          #85,R0
+         Dodge.c   127    delay();
+    00000102 BF9C                   BSR         _delay
+    00000104 2E01                   MOV.W       R0,@R14
+         Dodge.c   128    
+         Dodge.c   129    return result;
+    00000106 60F0                   MOV.B       @R15,R0
+         Dodge.c   130    }
+    00000108 7F04                   ADD         #4,R15
+    0000010A 4F26                   LDS.L       @R15+,PR
+    0000010C 69F6                   MOV.L       @R15+,R9
+    0000010E 6AF6                   MOV.L       @R15+,R10
+    00000110 6BF6                   MOV.L       @R15+,R11
+    00000112 6CF6                   MOV.L       @R15+,R12
+    00000114 6DF6                   MOV.L       @R15+,R13
+    00000116 000B                   RTS
+
+
+
+
+SH SERIES C/C++ Compiler (Ver. 6.0C)                                                                 16-Mar-2023 17:13:34  PAGE    6
+
+
+SCT OFFSET   CODE       C LABEL     INSTRUCTION OPERAND    COMMENT
+
+    00000118 6EF6                   MOV.L       @R15+,R14
+    0000011A              L617:                             
+    0000011A AAAA                   .DATA.W     H'AAAA
+    0000011C FF00                   .DATA.W     H'FF00
+    0000011E 5555                   .DATA.W     H'5555
+    00000120 <00000000>             .DATA.L     _sc0015
+    00000124 FF000000               .DATA.L     H'FF000000
+    00000128 00FF0000               .DATA.L     H'00FF0000
+    0000012C A4000102               .DATA.L     H'A4000102
+    00000130 A4000118               .DATA.L     H'A4000118
+    00000134 A4000122               .DATA.L     H'A4000122
+    00000138 A4000120               .DATA.L     H'A4000120
+         Dodge.c   131    
+         Dodge.c   132    unsigned char KeyDown(unsigned char keycode)
+    0000013C              _KeyDown:                        ; function: KeyDown
+                                                           ; frame size=36
+                                                           ; used runtime library name:
+                                                           ; __divls, __modls
+    0000013C 2FE6                   MOV.L       R14,@-R15
+    0000013E EE0A                   MOV         #10,R14
+    00000140 2FD6                   MOV.L       R13,@-R15
+    00000142 4F22                   STS.L       PR,@-R15
+         Dodge.c   133    {
+         Dodge.c   134    unsigned short key[8];
+         Dodge.c   135    const unsigned short* keyboardregister = (unsigned short*)0xA44B0000;
+    00000144 D34C                   MOV.L       L618,R3    ; H'A44B0000
+    00000146 7FE8                   ADD         #-24,R15
+    00000148 2F40                   MOV.B       R4,@R15
+    0000014A 1F31                   MOV.L       R3,@(4,R15)
+    0000014C 6DF0                   MOV.B       @R15,R13
+    0000014E BF57                   BSR         _OSVersionAsInt
+    00000150 6DDC                   EXTU.B      R13,R13
+    00000152 D24A                   MOV.L       L618+4,R2  ; H'02020000
+    00000154 3023                   CMP/GE      R2,R0
+    00000156 8B26                   BF          L529
+         Dodge.c   136    if(isOS2)
+         Dodge.c   137    {
+         Dodge.c   138      unsigned char row = keycode%10;
+    00000158 D349                   MOV.L       L618+8,R3  ; __modls
+    0000015A 61D3                   MOV         R13,R1
+    0000015C 430B                   JSR         @R3
+    0000015E 60E3                   MOV         R14,R0
+    00000160 2F00                   MOV.B       R0,@R15
+         Dodge.c   139      memcpy(key, keyboardregister, sizeof(unsigned short) << 3);
+    00000162 E610                   MOV         #16,R6
+    00000164 D347                   MOV.L       L618+12,R3 ; _memcpy
+    00000166 64F3                   MOV         R15,R4
+    00000168 55F1                   MOV.L       @(4,R15),R5
+    0000016A 430B                   JSR         @R3
+    0000016C 7408                   ADD         #8,R4
+         Dodge.c   140     
+         Dodge.c   141      return (0 != (key[row >> 1] & 1 << keycode / 10 - 1 + ((row & 1) << 3)));
+    0000016E E501                   MOV         #1,R5
+    00000170 64F0                   MOV.B       @R15,R4
+    00000172 61D3                   MOV         R13,R1
+    00000174 D244                   MOV.L       L618+16,R2 ; __divls
+    00000176 644C                   EXTU.B      R4,R4
+
+
+
+
+SH SERIES C/C++ Compiler (Ver. 6.0C)                                                                 16-Mar-2023 17:13:34  PAGE    7
+
+
+SCT OFFSET   CODE       C LABEL     INSTRUCTION OPERAND    COMMENT
+
+    00000178 6343                   MOV         R4,R3
+    0000017A 2359                   AND         R5,R3
+    0000017C 4308                   SHLL2       R3
+    0000017E 4300                   SHLL        R3
+    00000180 420B                   JSR         @R2
+    00000182 60E3                   MOV         R14,R0
+    00000184 330C                   ADD         R0,R3
+    00000186 73FF                   ADD         #-1,R3
+    00000188 6053                   MOV         R5,R0
+    0000018A 403C                   SHAD        R3,R0
+    0000018C 6343                   MOV         R4,R3
+    0000018E 4321                   SHAR        R3
+    00000190 4300                   SHLL        R3
+    00000192 61F3                   MOV         R15,R1
+    00000194 7108                   ADD         #8,R1
+    00000196 331C                   ADD         R1,R3
+    00000198 6231                   MOV.W       @R3,R2
+    0000019A 622D                   EXTU.W      R2,R2
+    0000019C 2029                   AND         R2,R0
+    0000019E 2008                   TST         R0,R0
+    000001A0 0029                   MOVT        R0
+    000001A2 A00E                   BRA         L531
+    000001A4 CA01                   XOR         #1,R0
+    000001A6              L529:                             
+         Dodge.c   142    }
+         Dodge.c   143    else
+         Dodge.c   144    {
+         Dodge.c   145      return CheckKeyRow((keycode % 10) + ((keycode / 10 - 1) << 4));
+    000001A6 61D3                   MOV         R13,R1
+    000001A8 D337                   MOV.L       L618+16,R3 ; __divls
+    000001AA 430B                   JSR         @R3
+    000001AC 60E3                   MOV         R14,R0
+    000001AE 6403                   MOV         R0,R4
+    000001B0 D333                   MOV.L       L618+8,R3  ; __modls
+    000001B2 61D3                   MOV         R13,R1
+    000001B4 74FF                   ADD         #-1,R4
+    000001B6 4408                   SHLL2       R4
+    000001B8 4408                   SHLL2       R4
+    000001BA 430B                   JSR         @R3
+    000001BC 60E3                   MOV         R14,R0
+    000001BE BF46                   BSR         _CheckKeyRow
+    000001C0 340C                   ADD         R0,R4
+         Dodge.c   146    }
+         Dodge.c   147    }
+    000001C2              L531:                             
+    000001C2 7F18                   ADD         #24,R15
+    000001C4 4F26                   LDS.L       @R15+,PR
+    000001C6 6DF6                   MOV.L       @R15+,R13
+    000001C8 000B                   RTS
+    000001CA 6EF6                   MOV.L       @R15+,R14
+         Dodge.c   148    unsigned char GetKeyMod(unsigned int *key)
+    000001CC              _GetKeyMod:                      ; function: GetKeyMod
+                                                           ; frame size=20
+    000001CC 2FE6                   MOV.L       R14,@-R15
+    000001CE 2FD6                   MOV.L       R13,@-R15
+    000001D0 2FC6                   MOV.L       R12,@-R15
+    000001D2 4F22                   STS.L       PR,@-R15
+
+
+
+
+SH SERIES C/C++ Compiler (Ver. 6.0C)                                                                 16-Mar-2023 17:13:34  PAGE    8
+
+
+SCT OFFSET   CODE       C LABEL     INSTRUCTION OPERAND    COMMENT
+
+         Dodge.c   149    {
+         Dodge.c   150    unsigned char x, ret;
+         Dodge.c   151    
+         Dodge.c   152    ret = GetKey(key);
+    000001D4 D32D                   MOV.L       L618+20,R3 ; _GetKey
+    000001D6 7FFC                   ADD         #-4,R15
+    000001D8 430B                   JSR         @R3
+    000001DA 6C43                   MOV         R4,R12
+    000001DC 2F00                   MOV.B       R0,@R15
+         Dodge.c   153    
+         Dodge.c   154    for(x = 0; x < 80; x++)
+    000001DE EE00                   MOV         #0,R14
+    000001E0 ED50                   MOV         #80,R13
+    000001E2              L534:                             
+         Dodge.c   155    {
+         Dodge.c   156      if(KeyDown(x))
+    000001E2 BFAB                   BSR         _KeyDown
+    000001E4 64E3                   MOV         R14,R4
+    000001E6 600C                   EXTU.B      R0,R0
+    000001E8 2008                   TST         R0,R0
+    000001EA 8902                   BT          L535
+         Dodge.c   157      {
+         Dodge.c   158       *key = x;
+    000001EC 6EEC                   EXTU.B      R14,R14
+         Dodge.c   159       break;
+    000001EE A004                   BRA         L533
+    000001F0 2CE2                   MOV.L       R14,@R12
+    000001F2              L535:                             
+    000001F2 7E01                   ADD         #1,R14
+    000001F4 62EC                   EXTU.B      R14,R2
+    000001F6 32D3                   CMP/GE      R13,R2
+    000001F8 8BF3                   BF          L534
+    000001FA              L533:                             
+         Dodge.c   160      }
+         Dodge.c   161    }
+         Dodge.c   162    return ret;
+    000001FA 60F0                   MOV.B       @R15,R0
+         Dodge.c   163    }
+    000001FC 7F04                   ADD         #4,R15
+    000001FE 4F26                   LDS.L       @R15+,PR
+    00000200 6CF6                   MOV.L       @R15+,R12
+    00000202 6DF6                   MOV.L       @R15+,R13
+    00000204 000B                   RTS
+    00000206 6EF6                   MOV.L       @R15+,R14
+         Dodge.c   164    #define IsKeyDown(x) KeyDown(x)
+         Dodge.c   165    #define IsKeyUp(x) !KeyDown(x)
+         Dodge.c   166    #define GetKey(x) GetKeyMod(x)
+         Dodge.c   167    #endif
+         Dodge.c   168    #endif
+         Dodge.c   169    
+         Dodge.c   170    #pragma endregion
+         Dodge.c   171    
+         Dodge.c   172    #pragma region Constants
+         Dodge.c   173    
+         Dodge.c   174    // true/false since it's 2018
+         Dodge.c   175    const char true  = 1;           // True and false aren't assigned, weird.
+         Dodge.c   176    const char false = 0;
+
+
+
+
+SH SERIES C/C++ Compiler (Ver. 6.0C)                                                                 16-Mar-2023 17:13:34  PAGE    9
+
+
+SCT OFFSET   CODE       C LABEL     INSTRUCTION OPERAND    COMMENT
+
+         Dodge.c   177    
+         Dodge.c   178    // Display properties
+         Dodge.c   179    const char DISPLAY_WIDTH    = 128;
+         Dodge.c   180    const char DISPLAY_HEIGHT   =  64;
+         Dodge.c   181    const char DISPLAY_CENTER_X =  64; // 128 / 2
+         Dodge.c   182    const char DISPLAY_CENTER_Y =  32; //  64 / 2
+         Dodge.c   183    
+         Dodge.c   184    #pragma endregion
+         Dodge.c   185    
+         Dodge.c   186    struct Projectile {
+         Dodge.c   187        char enabled;
+         Dodge.c   188        float x;
+         Dodge.c   189        float y;
+         Dodge.c   190        float xVelocity;
+         Dodge.c   191        float yVelocity;
+         Dodge.c   192        float xAcceleration;
+         Dodge.c   193        float yAcceleration;
+         Dodge.c   194    };
+         Dodge.c   195    struct Projectile projectiles[128];
+         Dodge.c   196    
+         Dodge.c   197    #pragma region Variables
+         Dodge.c   198    
+         Dodge.c   199    int playerHealth = 128;
+         Dodge.c   200    int playerX = 64;
+         Dodge.c   201    int playerY = 32;
+         Dodge.c   202    
+         Dodge.c   203    int projectileIndex;
+         Dodge.c   204    int maxProjectiles;
+         Dodge.c   205    int currentAttack = 0;
+         Dodge.c   206    const int attacksTotal = 3;
+         Dodge.c   207    
+         Dodge.c   208    char quit = 0;
+         Dodge.c   209    
+         Dodge.c   210    #pragma endregion
+         Dodge.c   211    
+         Dodge.c   212    int Sign(int x) {
+    00000208              _Sign:                           ; function: Sign
+                                                           ; frame size=0
+         Dodge.c   213        if (x > 0) return 1;
+    00000208 4415                   CMP/PL      R4
+    0000020A 8B01                   BF          L538
+    0000020C 000B                   RTS
+    0000020E E001                   MOV         #1,R0
+    00000210              L538:                             
+         Dodge.c   214        if (x < 0) return -1;
+    00000210 4411                   CMP/PZ      R4
+    00000212 8901                   BT          L540
+    00000214 000B                   RTS
+    00000216 E0FF                   MOV         #-1,R0
+    00000218              L540:                             
+         Dodge.c   215        return 0;
+    00000218 E000                   MOV         #0,R0
+         Dodge.c   216    }
+    0000021A              L539:                             
+    0000021A 000B                   RTS
+    0000021C 0009                   NOP
+         Dodge.c   217    float Signf(float x) {
+
+
+
+
+SH SERIES C/C++ Compiler (Ver. 6.0C)                                                                 16-Mar-2023 17:13:34  PAGE   10
+
+
+SCT OFFSET   CODE       C LABEL     INSTRUCTION OPERAND    COMMENT
+
+    0000021E              _Signf:                          ; function: Signf
+                                                           ; frame size=4
+                                                           ; used runtime library name:
+                                                           ; __gts, __lts
+         Dodge.c   218        if (x > 0) return 1;
+    0000021E 6143                   MOV         R4,R1
+    00000220 D31B                   MOV.L       L618+24,R3 ; __gts
+    00000222 4F22                   STS.L       PR,@-R15
+    00000224 430B                   JSR         @R3
+    00000226 E000                   MOV         #0,R0
+    00000228 8800                   CMP/EQ      #0,R0
+    0000022A 8903                   BT          L541
+    0000022C D019                   MOV.L       L618+28,R0 ; H'3F800000
+    0000022E 4F26                   LDS.L       @R15+,PR
+    00000230 000B                   RTS
+    00000232 0009                   NOP
+    00000234              L541:                             
+         Dodge.c   219        if (x < 0) return -1;
+    00000234 D218                   MOV.L       L618+32,R2 ; __lts
+    00000236 6143                   MOV         R4,R1
+    00000238 420B                   JSR         @R2
+    0000023A E000                   MOV         #0,R0
+    0000023C 8800                   CMP/EQ      #0,R0
+    0000023E 8903                   BT          L543
+    00000240 D016                   MOV.L       L618+36,R0 ; H'BF800000
+    00000242 4F26                   LDS.L       @R15+,PR
+    00000244 000B                   RTS
+    00000246 0009                   NOP
+    00000248              L543:                             
+         Dodge.c   220        return 0;
+    00000248 E000                   MOV         #0,R0
+         Dodge.c   221    }
+    0000024A              L542:                             
+    0000024A 4F26                   LDS.L       @R15+,PR
+    0000024C 000B                   RTS
+    0000024E 0009                   NOP
+         Dodge.c   222    
+         Dodge.c   223    void AppQuit()
+    00000250              _AppQuit:                        ; function: AppQuit
+                                                           ; frame size=8
+    00000250 2FE6                   MOV.L       R14,@-R15
+    00000252 4F22                   STS.L       PR,@-R15
+         Dodge.c   224    {
+         Dodge.c   225        KillTimer(ID_USER_TIMER1);
+    00000254 DE12                   MOV.L       L618+40,R14; _KillTimer
+    00000256 4E0B                   JSR         @R14
+    00000258 E401                   MOV         #1,R4
+         Dodge.c   226        KillTimer(ID_USER_TIMER2);
+    0000025A 4E0B                   JSR         @R14
+    0000025C E402                   MOV         #2,R4
+         Dodge.c   227        KillTimer(ID_USER_TIMER3);
+    0000025E 4E0B                   JSR         @R14
+    00000260 E403                   MOV         #3,R4
+         Dodge.c   228        KillTimer(ID_USER_TIMER4);
+    00000262 4E0B                   JSR         @R14
+    00000264 E404                   MOV         #4,R4
+         Dodge.c   229        KillTimer(ID_USER_TIMER5);
+
+
+
+
+SH SERIES C/C++ Compiler (Ver. 6.0C)                                                                 16-Mar-2023 17:13:34  PAGE   11
+
+
+SCT OFFSET   CODE       C LABEL     INSTRUCTION OPERAND    COMMENT
+
+    00000266 4E0B                   JSR         @R14
+    00000268 E405                   MOV         #5,R4
+         Dodge.c   230    
+         Dodge.c   231        quit = true;
+    0000026A D20E                   MOV.L       L618+44,R2 ; _true
+    0000026C D10E                   MOV.L       L618+48,R1 ; _quit
+    0000026E 6320                   MOV.B       @R2,R3
+    00000270 2130                   MOV.B       R3,@R1
+         Dodge.c   232    
+         Dodge.c   233        return;
+         Dodge.c   234    }
+    00000272 4F26                   LDS.L       @R15+,PR
+    00000274 000B                   RTS
+    00000276 6EF6                   MOV.L       @R15+,R14
+    00000278              L618:                             
+    00000278 A44B0000               .DATA.L     H'A44B0000
+    0000027C 02020000               .DATA.L     H'02020000
+    00000280 <00000000>             .DATA.L     __modls
+    00000284 <00000000>             .DATA.L     _memcpy
+    00000288 <00000000>             .DATA.L     __divls
+    0000028C <00000000>             .DATA.L     _GetKey
+    00000290 <00000000>             .DATA.L     __gts
+    00000294 3F800000               .DATA.L     H'3F800000
+    00000298 <00000000>             .DATA.L     __lts
+    0000029C BF800000               .DATA.L     H'BF800000
+    000002A0 <00000000>             .DATA.L     _KillTimer
+    000002A4 <00000000>             .DATA.L     _true
+    000002A8 <00000000>             .DATA.L     _quit
+         Dodge.c   235    
+         Dodge.c   236    #pragma region Drawing functions
+         Dodge.c   237    
+         Dodge.c   238    /** Draws the projectils */
+         Dodge.c   239    void DrawProjectiles()
+    000002AC              _DrawProjectiles:                ; function: DrawProjectiles
+                                                           ; frame size=20
+                                                           ; used runtime library name:
+                                                           ; __stoi
+    000002AC 2FE6                   MOV.L       R14,@-R15
+    000002AE 2FD6                   MOV.L       R13,@-R15
+    000002B0 2FC6                   MOV.L       R12,@-R15
+    000002B2 2FB6                   MOV.L       R11,@-R15
+    000002B4 4F22                   STS.L       PR,@-R15
+    000002B6 D548                   MOV.L       L619+2,R5  ; _projectiles
+    000002B8 DC48                   MOV.L       L619+6,R12 ; _Bdisp_SetPoint_VRAM
+    000002BA 6453                   MOV         R5,R4
+    000002BC 9B8B                   MOV.W       L619,R11   ; H'0E00
+    000002BE 6E53                   MOV         R5,R14
+    000002C0 6D53                   MOV         R5,R13
+    000002C2 3B5C                   ADD         R5,R11
+         Dodge.c   240    {   
+         Dodge.c   241        size_t i;
+         Dodge.c   242        for (i = 0; i < 128; i++)
+    000002C4              L545:                             
+         Dodge.c   243        {
+         Dodge.c   244            if(projectiles[i].enabled) {
+    000002C4 63D0                   MOV.B       @R13,R3
+    000002C6 2338                   TST         R3,R3
+
+
+
+
+SH SERIES C/C++ Compiler (Ver. 6.0C)                                                                 16-Mar-2023 17:13:34  PAGE   12
+
+
+SCT OFFSET   CODE       C LABEL     INSTRUCTION OPERAND    COMMENT
+
+    000002C8 8909                   BT          L546
+         Dodge.c   245                Bdisp_SetPoint_VRAM((int)(projectiles[i].x), (int)(projectiles[i].y), 1);
+    000002CA E601                   MOV         #1,R6
+    000002CC D344                   MOV.L       L619+10,R3 ; __stoi
+    000002CE 430B                   JSR         @R3
+    000002D0 50E2                   MOV.L       @(8,R14),R0
+    000002D2 6503                   MOV         R0,R5
+    000002D4 D242                   MOV.L       L619+10,R2 ; __stoi
+    000002D6 420B                   JSR         @R2
+    000002D8 50E1                   MOV.L       @(4,R14),R0
+    000002DA 4C0B                   JSR         @R12
+    000002DC 6403                   MOV         R0,R4
+    000002DE              L546:                             
+    000002DE 7D1C                   ADD         #28,R13
+    000002E0 3DB2                   CMP/HS      R11,R13
+    000002E2 8FEF                   BF/S        L545
+    000002E4 7E1C                   ADD         #28,R14
+         Dodge.c   246            }
+         Dodge.c   247        }
+         Dodge.c   248    }
+    000002E6 4F26                   LDS.L       @R15+,PR
+    000002E8 6BF6                   MOV.L       @R15+,R11
+    000002EA 6CF6                   MOV.L       @R15+,R12
+    000002EC 6DF6                   MOV.L       @R15+,R13
+    000002EE 000B                   RTS
+    000002F0 6EF6                   MOV.L       @R15+,R14
+         Dodge.c   249    /** Draws the player */
+         Dodge.c   250    void DrawPlayer()
+    000002F2              _DrawPlayer:                     ; function: DrawPlayer
+                                                           ; frame size=16
+         Dodge.c   251    {   
+         Dodge.c   252        Bdisp_SetPoint_VRAM(playerX, playerY, 1);
+    000002F2 E601                   MOV         #1,R6
+    000002F4 2FE6                   MOV.L       R14,@-R15
+    000002F6 2FD6                   MOV.L       R13,@-R15
+    000002F8 2FC6                   MOV.L       R12,@-R15
+    000002FA 4F22                   STS.L       PR,@-R15
+    000002FC DC39                   MOV.L       L619+14,R12; _playerX
+    000002FE DD3A                   MOV.L       L619+18,R13; _playerY
+    00000300 DE36                   MOV.L       L619+6,R14 ; _Bdisp_SetPoint_VRAM
+    00000302 65D2                   MOV.L       @R13,R5
+    00000304 4E0B                   JSR         @R14
+    00000306 64C2                   MOV.L       @R12,R4
+         Dodge.c   253        Bdisp_SetPoint_VRAM(playerX+1, playerY, 1);
+    00000308 65D2                   MOV.L       @R13,R5
+    0000030A E601                   MOV         #1,R6
+    0000030C 64C2                   MOV.L       @R12,R4
+    0000030E 4E0B                   JSR         @R14
+    00000310 7401                   ADD         #1,R4
+         Dodge.c   254        Bdisp_SetPoint_VRAM(playerX-1, playerY, 1);
+    00000312 E601                   MOV         #1,R6
+    00000314 65D2                   MOV.L       @R13,R5
+    00000316 64C2                   MOV.L       @R12,R4
+    00000318 4E0B                   JSR         @R14
+    0000031A 74FF                   ADD         #-1,R4
+         Dodge.c   255        Bdisp_SetPoint_VRAM(playerX, playerY+1, 1);
+    0000031C 65D2                   MOV.L       @R13,R5
+
+
+
+
+SH SERIES C/C++ Compiler (Ver. 6.0C)                                                                 16-Mar-2023 17:13:34  PAGE   13
+
+
+SCT OFFSET   CODE       C LABEL     INSTRUCTION OPERAND    COMMENT
+
+    0000031E E601                   MOV         #1,R6
+    00000320 7501                   ADD         #1,R5
+    00000322 4E0B                   JSR         @R14
+    00000324 64C2                   MOV.L       @R12,R4
+         Dodge.c   256        Bdisp_SetPoint_VRAM(playerX, playerY-1, 1);
+    00000326 E601                   MOV         #1,R6
+    00000328 65D2                   MOV.L       @R13,R5
+    0000032A 75FF                   ADD         #-1,R5
+    0000032C 4E0B                   JSR         @R14
+    0000032E 64C2                   MOV.L       @R12,R4
+         Dodge.c   257    }
+    00000330 4F26                   LDS.L       @R15+,PR
+    00000332 6CF6                   MOV.L       @R15+,R12
+    00000334 6DF6                   MOV.L       @R15+,R13
+    00000336 000B                   RTS
+    00000338 6EF6                   MOV.L       @R15+,R14
+         Dodge.c   258    
+         Dodge.c   259    void DrawHealthBar() {
+    0000033A              _DrawHealthBar:                  ; function: DrawHealthBar
+                                                           ; frame size=16
+    0000033A 2FE6                   MOV.L       R14,@-R15
+    0000033C 2FD6                   MOV.L       R13,@-R15
+    0000033E 2FC6                   MOV.L       R12,@-R15
+    00000340 4F22                   STS.L       PR,@-R15
+         Dodge.c   260        size_t i;
+         Dodge.c   261        for (i = 0; i < playerHealth; i++)
+    00000342 DC2A                   MOV.L       L619+22,R12; _playerHealth
+    00000344 DD25                   MOV.L       L619+6,R13 ; _Bdisp_SetPoint_VRAM
+    00000346 A005                   BRA         L547
+    00000348 EE00                   MOV         #0,R14
+    0000034A              L548:                             
+         Dodge.c   262        {
+         Dodge.c   263            Bdisp_SetPoint_VRAM(i, 63, 1);
+    0000034A E601                   MOV         #1,R6
+    0000034C E53F                   MOV         #63,R5
+    0000034E 4D0B                   JSR         @R13
+    00000350 64E3                   MOV         R14,R4
+    00000352 7E01                   ADD         #1,R14
+    00000354              L547:                             
+    00000354 62C2                   MOV.L       @R12,R2
+    00000356 3E22                   CMP/HS      R2,R14
+    00000358 8BF7                   BF          L548
+         Dodge.c   264        }
+         Dodge.c   265        // debug bars
+         Dodge.c   266        // for (i = 0; i < projectileIndex; i++)
+         Dodge.c   267        //     Bdisp_SetPoint_VRAM(i, 1, 1);
+         Dodge.c   268        // for (i = 0; i < maxProjectiles; i++)
+         Dodge.c   269        //     Bdisp_SetPoint_VRAM(i, 2, 1);
+         Dodge.c   270    }
+    0000035A 4F26                   LDS.L       @R15+,PR
+    0000035C 6CF6                   MOV.L       @R15+,R12
+    0000035E 6DF6                   MOV.L       @R15+,R13
+    00000360 000B                   RTS
+    00000362 6EF6                   MOV.L       @R15+,R14
+         Dodge.c   271    
+         Dodge.c   272    #pragma endregion
+         Dodge.c   273    
+
+
+
+
+SH SERIES C/C++ Compiler (Ver. 6.0C)                                                                 16-Mar-2023 17:13:34  PAGE   14
+
+
+SCT OFFSET   CODE       C LABEL     INSTRUCTION OPERAND    COMMENT
+
+         Dodge.c   274    // spawn a new projectile at x and y with velocity and acceleration
+         Dodge.c   275    void SpawnProjectile(float x, float y, float xVelocity, float yVelocity, float xAcceleration, float yAccel
+                         +eration) {
+    00000364              _SpawnProjectile:                ; function: SpawnProjectile
+                                                           ; frame size=20
+    00000364 2FE6                   MOV.L       R14,@-R15
+    00000366 2FD6                   MOV.L       R13,@-R15
+    00000368 2FB6                   MOV.L       R11,@-R15
+    0000036A 7FF8                   ADD         #-8,R15
+    0000036C DE1A                   MOV.L       L619+2,R14 ; _projectiles
+    0000036E 2FE2                   MOV.L       R14,@R15
+    00000370 1FE1                   MOV.L       R14,@(4,R15)
+    00000372 6DE3                   MOV         R14,R13
+    00000374 932F                   MOV.W       L619,R3    ; H'0E00
+    00000376 61F2                   MOV.L       @R15,R1
+         Dodge.c   276        size_t i;
+         Dodge.c   277        for (i = 0; i < 128; i++)
+    00000378 DB1D                   MOV.L       L619+26,R11; _true
+    0000037A 313C                   ADD         R3,R1
+    0000037C 3D12                   CMP/HS      R1,R13
+    0000037E 8911                   BT          L552
+    00000380              L550:                             
+         Dodge.c   278        {
+         Dodge.c   279            if(!projectiles[i].enabled) { // found a free spot in the array
+    00000380 63D0                   MOV.B       @R13,R3
+    00000382 2338                   TST         R3,R3
+    00000384 8B0A                   BF          L551
+         Dodge.c   280                // set up the projectile
+         Dodge.c   281                projectiles[i].x = x;
+    00000386 1E41                   MOV.L       R4,@(4,R14)
+         Dodge.c   282                projectiles[i].y = y;
+    00000388 1E52                   MOV.L       R5,@(8,R14)
+         Dodge.c   283                projectiles[i].xVelocity = xVelocity;
+    0000038A 1E63                   MOV.L       R6,@(12,R14)
+         Dodge.c   284                projectiles[i].yVelocity = yVelocity;
+    0000038C 1E74                   MOV.L       R7,@(16,R14)
+         Dodge.c   285                projectiles[i].xAcceleration = xAcceleration;
+    0000038E 53F5                   MOV.L       @(20,R15),R3
+    00000390 1E35                   MOV.L       R3,@(20,R14)
+         Dodge.c   286                projectiles[i].yAcceleration = yAcceleration;
+    00000392 52F6                   MOV.L       @(24,R15),R2
+    00000394 1E26                   MOV.L       R2,@(24,R14)
+         Dodge.c   287                // enable it
+         Dodge.c   288                projectiles[i].enabled = true;
+    00000396 63B0                   MOV.B       @R11,R3
+         Dodge.c   289                // stop the loop, we're done
+         Dodge.c   290                return;
+    00000398 A004                   BRA         L552
+    0000039A 2E30                   MOV.B       R3,@R14
+    0000039C              L551:                             
+    0000039C 7D1C                   ADD         #28,R13
+    0000039E 3D12                   CMP/HS      R1,R13
+    000003A0 8FEE                   BF/S        L550
+    000003A2 7E1C                   ADD         #28,R14
+    000003A4              L552:                             
+         Dodge.c   291            }
+         Dodge.c   292        }
+
+
+
+
+SH SERIES C/C++ Compiler (Ver. 6.0C)                                                                 16-Mar-2023 17:13:34  PAGE   15
+
+
+SCT OFFSET   CODE       C LABEL     INSTRUCTION OPERAND    COMMENT
+
+         Dodge.c   293        
+         Dodge.c   294    }
+    000003A4 7F08                   ADD         #8,R15
+    000003A6 6BF6                   MOV.L       @R15+,R11
+    000003A8 6DF6                   MOV.L       @R15+,R13
+    000003AA 000B                   RTS
+    000003AC 6EF6                   MOV.L       @R15+,R14
+         Dodge.c   295    
+         Dodge.c   296    #pragma region Timer functions
+         Dodge.c   297    
+         Dodge.c   298    /** Timer #2: Renders screen */
+         Dodge.c   299    void RenderScreen()
+    000003AE              _RenderScreen:                   ; function: RenderScreen
+                                                           ; frame size=4
+    000003AE 4F22                   STS.L       PR,@-R15
+         Dodge.c   300    {
+         Dodge.c   301        if(!quit) {
+    000003B0 D210                   MOV.L       L619+30,R2 ; _quit
+    000003B2 6320                   MOV.B       @R2,R3
+    000003B4 2338                   TST         R3,R3
+    000003B6 8B0B                   BF          L553
+         Dodge.c   302            // Clear current screen
+         Dodge.c   303            Bdisp_AllClr_VRAM();
+    000003B8 D30F                   MOV.L       L619+34,R3 ; _Bdisp_AllClr_VRAM
+    000003BA 430B                   JSR         @R3
+    000003BC 0009                   NOP
+         Dodge.c   304                
+         Dodge.c   305            // Draw the different parts of the screen
+         Dodge.c   306            DrawProjectiles();
+    000003BE BF75                   BSR         _DrawProjectiles
+    000003C0 0009                   NOP
+         Dodge.c   307            DrawPlayer();
+    000003C2 BF96                   BSR         _DrawPlayer
+    000003C4 0009                   NOP
+         Dodge.c   308            DrawHealthBar();
+    000003C6 BFB8                   BSR         _DrawHealthBar
+    000003C8 0009                   NOP
+         Dodge.c   309    
+         Dodge.c   310            // Move VRAM to DD
+         Dodge.c   311            Bdisp_PutDisp_DD();
+    000003CA D30C                   MOV.L       L619+38,R3 ; _Bdisp_PutDisp_DD
+    000003CC 432B                   JMP         @R3
+    000003CE 4F26                   LDS.L       @R15+,PR
+    000003D0              L553:                             
+         Dodge.c   312        }
+         Dodge.c   313    }
+    000003D0 4F26                   LDS.L       @R15+,PR
+    000003D2 000B                   RTS
+    000003D4 0009                   NOP
+    000003D6              L619:                             
+    000003D6 0E00                   .DATA.W     H'0E00
+    000003D8 <00000000>             .DATA.L     _projectiles
+    000003DC <00000000>             .DATA.L     _Bdisp_SetPoint_VRAM
+    000003E0 <00000000>             .DATA.L     __stoi
+    000003E4 <00000000>             .DATA.L     _playerX
+    000003E8 <00000000>             .DATA.L     _playerY
+    000003EC <00000000>             .DATA.L     _playerHealth
+
+
+
+
+SH SERIES C/C++ Compiler (Ver. 6.0C)                                                                 16-Mar-2023 17:13:34  PAGE   16
+
+
+SCT OFFSET   CODE       C LABEL     INSTRUCTION OPERAND    COMMENT
+
+    000003F0 <00000000>             .DATA.L     _true
+    000003F4 <00000000>             .DATA.L     _quit
+    000003F8 <00000000>             .DATA.L     _Bdisp_AllClr_VRAM
+    000003FC <00000000>             .DATA.L     _Bdisp_PutDisp_DD
+         Dodge.c   314    
+         Dodge.c   315    void MoveProjectile(int arrayIndex, float x1, float y1, float x2, float y2) {
+    00000400              _MoveProjectile:                 ; function: MoveProjectile
+                                                           ; frame size=32
+                                                           ; used runtime library name:
+                                                           ; __adds, __subs, __muls, __stoi, __itos, __ges
+    00000400 2FE6                   MOV.L       R14,@-R15
+    00000402 2FD6                   MOV.L       R13,@-R15
+    00000404 2FC6                   MOV.L       R12,@-R15
+    00000406 2FB6                   MOV.L       R11,@-R15
+    00000408 2FA6                   MOV.L       R10,@-R15
+    0000040A 2F96                   MOV.L       R9,@-R15
+    0000040C 4F22                   STS.L       PR,@-R15
+    0000040E 4F12                   STS.L       MACL,@-R15
+         Dodge.c   316        int m_new = 2 * (y2 - y1);
+    00000410 51F8                   MOV.L       @(32,R15),R1
+    00000412 D33C                   MOV.L       L620+2,R3  ; __subs
+    00000414 430B                   JSR         @R3
+    00000416 6063                   MOV         R6,R0
+    00000418 D13B                   MOV.L       L620+6,R1  ; H'40000000
+    0000041A D23C                   MOV.L       L620+10,R2 ; __muls
+    0000041C 420B                   JSR         @R2
+    0000041E 0009                   NOP
+    00000420 D33B                   MOV.L       L620+14,R3 ; __stoi
+    00000422 430B                   JSR         @R3
+    00000424 0009                   NOP
+         Dodge.c   317        int slope_error_new = m_new - (x2 - x1);
+    00000426 D23B                   MOV.L       L620+18,R2 ; __itos
+    00000428 420B                   JSR         @R2
+    0000042A 6B03                   MOV         R0,R11
+    0000042C D33A                   MOV.L       L620+22,R3 ; __adds
+    0000042E 430B                   JSR         @R3
+    00000430 6153                   MOV         R5,R1
+    00000432 6103                   MOV         R0,R1
+    00000434 D233                   MOV.L       L620+2,R2  ; __subs
+    00000436 420B                   JSR         @R2
+    00000438 6073                   MOV         R7,R0
+    0000043A D335                   MOV.L       L620+14,R3 ; __stoi
+    0000043C 430B                   JSR         @R3
+    0000043E 0009                   NOP
+         Dodge.c   318        int x;
+         Dodge.c   319        int y;
+         Dodge.c   320        for (x = x1, y = y1; x <= x2; x++) {
+    00000440 D233                   MOV.L       L620+14,R2 ; __stoi
+    00000442 6D03                   MOV         R0,R13
+    00000444 420B                   JSR         @R2
+    00000446 6053                   MOV         R5,R0
+    00000448 D331                   MOV.L       L620+14,R3 ; __stoi
+    0000044A 6E03                   MOV         R0,R14
+    0000044C 430B                   JSR         @R3
+    0000044E 6063                   MOV         R6,R0
+    00000450 D332                   MOV.L       L620+26,R3 ; _projectiles
+    00000452 6173                   MOV         R7,R1
+
+
+
+
+SH SERIES C/C++ Compiler (Ver. 6.0C)                                                                 16-Mar-2023 17:13:34  PAGE   17
+
+
+SCT OFFSET   CODE       C LABEL     INSTRUCTION OPERAND    COMMENT
+
+    00000454 D22B                   MOV.L       L620+2,R2  ; __subs
+    00000456 6C03                   MOV         R0,R12
+    00000458 EA1C                   MOV         #28,R10
+    0000045A 04A7                   MUL.L       R10,R4
+    0000045C 0A1A                   STS         MACL,R10
+    0000045E 3A3C                   ADD         R3,R10
+    00000460 420B                   JSR         @R2
+    00000462 6053                   MOV         R5,R0
+    00000464 D128                   MOV.L       L620+6,R1  ; H'40000000
+    00000466 D229                   MOV.L       L620+10,R2 ; __muls
+    00000468 420B                   JSR         @R2
+    0000046A 0009                   NOP
+    0000046C D92C                   MOV.L       L620+30,R9 ; _playerX
+    0000046E 6603                   MOV         R0,R6
+    00000470 D52C                   MOV.L       L620+34,R5 ; _false
+    00000472 D42D                   MOV.L       L620+38,R4 ; _playerHealth
+    00000474 D127                   MOV.L       L620+18,R1 ; __itos
+    00000476 410B                   JSR         @R1
+    00000478 60E3                   MOV         R14,R0
+    0000047A D22C                   MOV.L       L620+42,R2 ; __ges
+    0000047C 420B                   JSR         @R2
+    0000047E 6173                   MOV         R7,R1
+    00000480 8800                   CMP/EQ      #0,R0
+    00000482 8924                   BT          L554
+    00000484              L555:                             
+         Dodge.c   321            // check for collision
+         Dodge.c   322            if(x == playerX && y == playerY) {
+    00000484 6392                   MOV.L       @R9,R3
+    00000486 3E30                   CMP/EQ      R3,R14
+    00000488 8B09                   BF          L556
+    0000048A D229                   MOV.L       L620+46,R2 ; _playerY
+    0000048C 6122                   MOV.L       @R2,R1
+    0000048E 3C10                   CMP/EQ      R1,R12
+    00000490 8B05                   BF          L556
+         Dodge.c   323                // damage player
+         Dodge.c   324                playerHealth -= 1;
+    00000492 6042                   MOV.L       @R4,R0
+    00000494 70FF                   ADD         #-1,R0
+    00000496 2402                   MOV.L       R0,@R4
+         Dodge.c   325                // destroy projectile
+         Dodge.c   326                projectiles[arrayIndex].enabled = false;
+    00000498 6350                   MOV.B       @R5,R3
+         Dodge.c   327                return;
+    0000049A A01B                   BRA         L557
+    0000049C 2A30                   MOV.B       R3,@R10
+    0000049E              L556:                             
+         Dodge.c   328            }
+         Dodge.c   329    
+         Dodge.c   330            // Add slope to increment angle formed
+         Dodge.c   331            slope_error_new += m_new;
+    0000049E 3DBC                   ADD         R11,R13
+         Dodge.c   332     
+         Dodge.c   333            // Slope error reached limit, time to
+         Dodge.c   334            // increment y and update slope error.
+         Dodge.c   335            if (slope_error_new >= 0) {
+    000004A0 4D11                   CMP/PZ      R13
+    000004A2 8B0B                   BF          L558
+
+
+
+
+SH SERIES C/C++ Compiler (Ver. 6.0C)                                                                 16-Mar-2023 17:13:34  PAGE   18
+
+
+SCT OFFSET   CODE       C LABEL     INSTRUCTION OPERAND    COMMENT
+
+         Dodge.c   336                y++;
+         Dodge.c   337                slope_error_new -= 2 * (x2 - x1);
+    000004A4 D11B                   MOV.L       L620+18,R1 ; __itos
+    000004A6 7C01                   ADD         #1,R12
+    000004A8 410B                   JSR         @R1
+    000004AA 60D3                   MOV         R13,R0
+    000004AC D315                   MOV.L       L620+2,R3  ; __subs
+    000004AE 6103                   MOV         R0,R1
+    000004B0 430B                   JSR         @R3
+    000004B2 6063                   MOV         R6,R0
+    000004B4 D116                   MOV.L       L620+14,R1 ; __stoi
+    000004B6 410B                   JSR         @R1
+    000004B8 0009                   NOP
+    000004BA 6D03                   MOV         R0,R13
+    000004BC              L558:                             
+    000004BC D215                   MOV.L       L620+18,R2 ; __itos
+    000004BE 7E01                   ADD         #1,R14
+    000004C0 420B                   JSR         @R2
+    000004C2 60E3                   MOV         R14,R0
+    000004C4 D319                   MOV.L       L620+42,R3 ; __ges
+    000004C6 430B                   JSR         @R3
+    000004C8 6173                   MOV         R7,R1
+    000004CA 8800                   CMP/EQ      #0,R0
+    000004CC 8BDA                   BF          L555
+    000004CE              L554:                             
+         Dodge.c   338            }
+         Dodge.c   339        }
+         Dodge.c   340        projectiles[arrayIndex].x = x2;
+    000004CE 1A71                   MOV.L       R7,@(4,R10)
+         Dodge.c   341        projectiles[arrayIndex].y = y2;
+    000004D0 52F8                   MOV.L       @(32,R15),R2
+    000004D2 1A22                   MOV.L       R2,@(8,R10)
+         Dodge.c   342    }
+    000004D4              L557:                             
+    000004D4 4F16                   LDS.L       @R15+,MACL
+    000004D6 4F26                   LDS.L       @R15+,PR
+    000004D8 69F6                   MOV.L       @R15+,R9
+    000004DA 6AF6                   MOV.L       @R15+,R10
+    000004DC 6BF6                   MOV.L       @R15+,R11
+    000004DE 6CF6                   MOV.L       @R15+,R12
+    000004E0 6DF6                   MOV.L       @R15+,R13
+    000004E2 000B                   RTS
+    000004E4 6EF6                   MOV.L       @R15+,R14
+         Dodge.c   343    
+         Dodge.c   344    void Physics()
+    000004E6              _Physics:                        ; function: Physics
+                                                           ; frame size=40
+                                                           ; used runtime library name:
+                                                           ; __adds, __gts, __lts
+    000004E6 2FE6                   MOV.L       R14,@-R15
+    000004E8 2FD6                   MOV.L       R13,@-R15
+    000004EA 2FC6                   MOV.L       R12,@-R15
+    000004EC 2FB6                   MOV.L       R11,@-R15
+         Dodge.c   345    {
+         Dodge.c   346        size_t i;
+         Dodge.c   347        for (i = 0; i < 128; i++)
+    000004EE EC1C                   MOV         #28,R12
+
+
+
+
+SH SERIES C/C++ Compiler (Ver. 6.0C)                                                                 16-Mar-2023 17:13:34  PAGE   19
+
+
+SCT OFFSET   CODE       C LABEL     INSTRUCTION OPERAND    COMMENT
+
+    000004F0 2FA6                   MOV.L       R10,@-R15
+    000004F2 2F96                   MOV.L       R9,@-R15
+    000004F4 2F86                   MOV.L       R8,@-R15
+    000004F6 4F22                   STS.L       PR,@-R15
+    000004F8 4F12                   STS.L       MACL,@-R15
+    000004FA D80A                   MOV.L       L620+34,R8 ; _false
+    000004FC 9B01                   MOV.W       L620,R11   ; H'0080
+    000004FE A058                   BRA         L559
+    00000500 ED00                   MOV         #0,R13
+    00000502              L620:                             
+    00000502 0080                   .DATA.W     H'0080
+    00000504 <00000000>             .DATA.L     __subs
+    00000508 40000000               .DATA.L     H'40000000
+    0000050C <00000000>             .DATA.L     __muls
+    00000510 <00000000>             .DATA.L     __stoi
+    00000514 <00000000>             .DATA.L     __itos
+    00000518 <00000000>             .DATA.L     __adds
+    0000051C <00000000>             .DATA.L     _projectiles
+    00000520 <00000000>             .DATA.L     _playerX
+    00000524 <00000000>             .DATA.L     _false
+    00000528 <00000000>             .DATA.L     _playerHealth
+    0000052C <00000000>             .DATA.L     __ges
+    00000530 <00000000>             .DATA.L     _playerY
+    00000534              L560:                             
+    00000534 0DC7                   MUL.L       R12,R13
+    00000536 0E1A                   STS         MACL,R14
+    00000538 D37B                   MOV.L       L621,R3    ; _projectiles
+    0000053A 3E3C                   ADD         R3,R14
+    0000053C 62E0                   MOV.B       @R14,R2
+    0000053E 2228                   TST         R2,R2
+    00000540 8936                   BT          L564
+         Dodge.c   348        {
+         Dodge.c   349            if(projectiles[i].enabled) {
+         Dodge.c   350                // collision with edge of map
+         Dodge.c   351                if(projectiles[i].x < 0 || projectiles[i].x > 128 || projectiles[i].y < 0 || projectiles[i].y 
+                         +> 64) {
+    00000542 54E1                   MOV.L       @(4,R14),R4
+    00000544 D279                   MOV.L       L621+4,R2  ; __lts
+    00000546 6143                   MOV         R4,R1
+    00000548 420B                   JSR         @R2
+    0000054A E000                   MOV         #0,R0
+    0000054C 8800                   CMP/EQ      #0,R0
+    0000054E 8B11                   BF          L563
+    00000550 D077                   MOV.L       L621+8,R0  ; H'43000000
+    00000552 D278                   MOV.L       L621+12,R2 ; __gts
+    00000554 420B                   JSR         @R2
+    00000556 6143                   MOV         R4,R1
+    00000558 8800                   CMP/EQ      #0,R0
+    0000055A 8B0B                   BF          L563
+    0000055C 51E2                   MOV.L       @(8,R14),R1
+    0000055E D273                   MOV.L       L621+4,R2  ; __lts
+    00000560 420B                   JSR         @R2
+    00000562 E000                   MOV         #0,R0
+    00000564 8800                   CMP/EQ      #0,R0
+    00000566 8B05                   BF          L563
+    00000568 D073                   MOV.L       L621+16,R0 ; H'42800000
+    0000056A D272                   MOV.L       L621+12,R2 ; __gts
+
+
+
+
+SH SERIES C/C++ Compiler (Ver. 6.0C)                                                                 16-Mar-2023 17:13:34  PAGE   20
+
+
+SCT OFFSET   CODE       C LABEL     INSTRUCTION OPERAND    COMMENT
+
+    0000056C 420B                   JSR         @R2
+    0000056E 51E2                   MOV.L       @(8,R14),R1
+    00000570 8800                   CMP/EQ      #0,R0
+    00000572 8902                   BT          L562
+    00000574              L563:                             
+         Dodge.c   352                    // destroy projectile
+         Dodge.c   353                    projectiles[i].enabled = false;
+    00000574 6380                   MOV.B       @R8,R3
+         Dodge.c   354                    continue;
+    00000576 A01B                   BRA         L564
+    00000578 2E30                   MOV.B       R3,@R14
+    0000057A              L562:                             
+         Dodge.c   355                }
+         Dodge.c   356                // move + detect player collisions
+         Dodge.c   357                MoveProjectile(i,
+         Dodge.c   358                    projectiles[i].x,
+         Dodge.c   359                    projectiles[i].y,
+         Dodge.c   360                    projectiles[i].x + projectiles[i].xVelocity,
+         Dodge.c   361                    projectiles[i].y + projectiles[i].yVelocity
+         Dodge.c   362                );
+    0000057A 59E2                   MOV.L       @(8,R14),R9
+    0000057C D36F                   MOV.L       L621+20,R3 ; __adds
+    0000057E 6193                   MOV         R9,R1
+    00000580 430B                   JSR         @R3
+    00000582 50E4                   MOV.L       @(16,R14),R0
+    00000584 2F06                   MOV.L       R0,@-R15
+    00000586 5AE1                   MOV.L       @(4,R14),R10
+    00000588 D26C                   MOV.L       L621+20,R2 ; __adds
+    0000058A 61A3                   MOV         R10,R1
+    0000058C 420B                   JSR         @R2
+    0000058E 50E3                   MOV.L       @(12,R14),R0
+    00000590 6703                   MOV         R0,R7
+    00000592 6693                   MOV         R9,R6
+    00000594 65A3                   MOV         R10,R5
+    00000596 BF33                   BSR         _MoveProjectile
+    00000598 64D3                   MOV         R13,R4
+    0000059A 7F04                   ADD         #4,R15
+         Dodge.c   363                // projectiles[i].x += projectiles[i].xVelocity;
+         Dodge.c   364                // projectiles[i].y += projectiles[i].yVelocity;
+         Dodge.c   365                // update velocity
+         Dodge.c   366                projectiles[i].xVelocity += projectiles[i].xAcceleration;
+    0000059C D267                   MOV.L       L621+20,R2 ; __adds
+    0000059E 50E5                   MOV.L       @(20,R14),R0
+    000005A0 420B                   JSR         @R2
+    000005A2 51E3                   MOV.L       @(12,R14),R1
+    000005A4 1E03                   MOV.L       R0,@(12,R14)
+         Dodge.c   367                projectiles[i].yVelocity += projectiles[i].yAcceleration;
+    000005A6 50E6                   MOV.L       @(24,R14),R0
+    000005A8 D364                   MOV.L       L621+20,R3 ; __adds
+    000005AA 430B                   JSR         @R3
+    000005AC 51E4                   MOV.L       @(16,R14),R1
+    000005AE 1E04                   MOV.L       R0,@(16,R14)
+    000005B0              L564:                             
+    000005B0 7D01                   ADD         #1,R13
+    000005B2              L559:                             
+    000005B2 3DB2                   CMP/HS      R11,R13
+    000005B4 8BBE                   BF          L560
+
+
+
+
+SH SERIES C/C++ Compiler (Ver. 6.0C)                                                                 16-Mar-2023 17:13:34  PAGE   21
+
+
+SCT OFFSET   CODE       C LABEL     INSTRUCTION OPERAND    COMMENT
+
+         Dodge.c   368            }
+         Dodge.c   369        }
+         Dodge.c   370    
+         Dodge.c   371        // stop player from leaving map
+         Dodge.c   372            if(playerX < 1)
+    000005B6 E401                   MOV         #1,R4
+    000005B8 D561                   MOV.L       L621+24,R5 ; _playerX
+    000005BA 6352                   MOV.L       @R5,R3
+    000005BC 3343                   CMP/GE      R4,R3
+    000005BE 8D01                   BT/S        L565
+         Dodge.c   373                playerX = 1;
+         Dodge.c   374            if(playerX > 127)
+    000005C0 E67F                   MOV         #127,R6
+    000005C2 2542                   MOV.L       R4,@R5
+    000005C4              L565:                             
+    000005C4 6352                   MOV.L       @R5,R3
+    000005C6 3367                   CMP/GT      R6,R3
+    000005C8 8B00                   BF          L566
+         Dodge.c   375                playerX = 127;
+    000005CA 2562                   MOV.L       R6,@R5
+    000005CC              L566:                             
+         Dodge.c   376            if(playerY < 1)
+    000005CC D55D                   MOV.L       L621+28,R5 ; _playerY
+    000005CE 6352                   MOV.L       @R5,R3
+    000005D0 3343                   CMP/GE      R4,R3
+    000005D2 8900                   BT          L567
+         Dodge.c   377                playerY = 1;
+    000005D4 2542                   MOV.L       R4,@R5
+    000005D6              L567:                             
+         Dodge.c   378            if(playerY > 63)
+    000005D6 E43F                   MOV         #63,R4
+    000005D8 6352                   MOV.L       @R5,R3
+    000005DA 3347                   CMP/GT      R4,R3
+    000005DC 8B00                   BF          L568
+         Dodge.c   379                playerY = 63;
+    000005DE 2542                   MOV.L       R4,@R5
+    000005E0              L568:                             
+         Dodge.c   380    }
+    000005E0 4F16                   LDS.L       @R15+,MACL
+    000005E2 4F26                   LDS.L       @R15+,PR
+    000005E4 68F6                   MOV.L       @R15+,R8
+    000005E6 69F6                   MOV.L       @R15+,R9
+    000005E8 6AF6                   MOV.L       @R15+,R10
+    000005EA 6BF6                   MOV.L       @R15+,R11
+    000005EC 6CF6                   MOV.L       @R15+,R12
+    000005EE 6DF6                   MOV.L       @R15+,R13
+    000005F0 000B                   RTS
+    000005F2 6EF6                   MOV.L       @R15+,R14
+         Dodge.c   381    
+         Dodge.c   382    void Controls()
+    000005F4              _Controls:                       ; function: Controls
+                                                           ; frame size=8
+    000005F4 2FE6                   MOV.L       R14,@-R15
+    000005F6 4F22                   STS.L       PR,@-R15
+         Dodge.c   383    {
+         Dodge.c   384        if(!quit) {
+    000005F8 D253                   MOV.L       L621+32,R2 ; _quit
+
+
+
+
+SH SERIES C/C++ Compiler (Ver. 6.0C)                                                                 16-Mar-2023 17:13:34  PAGE   22
+
+
+SCT OFFSET   CODE       C LABEL     INSTRUCTION OPERAND    COMMENT
+
+    000005FA 6320                   MOV.B       @R2,R3
+    000005FC 2338                   TST         R3,R3
+    000005FE 8B23                   BF          L569
+         Dodge.c   385            if(IsKeyDown(KEY_CTRL_LEFT)) {
+    00000600 DE4F                   MOV.L       L621+24,R14; _playerX
+    00000602 BD9B                   BSR         _KeyDown
+    00000604 E426                   MOV         #38,R4
+    00000606 600C                   EXTU.B      R0,R0
+    00000608 2008                   TST         R0,R0
+    0000060A 8D03                   BT/S        L570
+         Dodge.c   386                playerX--;
+         Dodge.c   387            }
+         Dodge.c   388            if(IsKeyDown(KEY_CTRL_RIGHT)) {
+    0000060C E41B                   MOV         #27,R4
+    0000060E 63E2                   MOV.L       @R14,R3
+    00000610 73FF                   ADD         #-1,R3
+    00000612 2E32                   MOV.L       R3,@R14
+    00000614              L570:                             
+    00000614 BD92                   BSR         _KeyDown
+    00000616 0009                   NOP
+    00000618 600C                   EXTU.B      R0,R0
+    0000061A 2008                   TST         R0,R0
+    0000061C 8902                   BT          L571
+         Dodge.c   389                playerX++;
+    0000061E 62E2                   MOV.L       @R14,R2
+    00000620 7201                   ADD         #1,R2
+    00000622 2E22                   MOV.L       R2,@R14
+    00000624              L571:                             
+         Dodge.c   390            }
+         Dodge.c   391            if(IsKeyDown(KEY_CTRL_UP)) {
+    00000624 DE47                   MOV.L       L621+28,R14; _playerY
+    00000626 BD89                   BSR         _KeyDown
+    00000628 E41C                   MOV         #28,R4
+    0000062A 600C                   EXTU.B      R0,R0
+    0000062C 2008                   TST         R0,R0
+    0000062E 8D03                   BT/S        L572
+         Dodge.c   392                playerY--;
+         Dodge.c   393            }
+         Dodge.c   394            if(IsKeyDown(KEY_CTRL_DOWN)) {
+    00000630 E425                   MOV         #37,R4
+    00000632 63E2                   MOV.L       @R14,R3
+    00000634 73FF                   ADD         #-1,R3
+    00000636 2E32                   MOV.L       R3,@R14
+    00000638              L572:                             
+    00000638 BD80                   BSR         _KeyDown
+    0000063A 0009                   NOP
+    0000063C 600C                   EXTU.B      R0,R0
+    0000063E 2008                   TST         R0,R0
+    00000640 8902                   BT          L569
+         Dodge.c   395                playerY++;
+    00000642 62E2                   MOV.L       @R14,R2
+    00000644 7201                   ADD         #1,R2
+    00000646 2E22                   MOV.L       R2,@R14
+    00000648              L569:                             
+         Dodge.c   396            }
+         Dodge.c   397        }
+         Dodge.c   398        
+
+
+
+
+SH SERIES C/C++ Compiler (Ver. 6.0C)                                                                 16-Mar-2023 17:13:34  PAGE   23
+
+
+SCT OFFSET   CODE       C LABEL     INSTRUCTION OPERAND    COMMENT
+
+         Dodge.c   399    }
+    00000648 4F26                   LDS.L       @R15+,PR
+    0000064A 000B                   RTS
+    0000064C 6EF6                   MOV.L       @R15+,R14
+         Dodge.c   400    
+         Dodge.c   401    #pragma region attacks
+         Dodge.c   402    
+         Dodge.c   403    // next projectile in this attack
+         Dodge.c   404    void SpawnNext() {
+    0000064E              _SpawnNext:                      ; function: SpawnNext
+                                                           ; frame size=44
+                                                           ; used runtime library name:
+                                                           ; __modls, __muls, __itos
+    0000064E 2FE6                   MOV.L       R14,@-R15
+    00000650 2FD6                   MOV.L       R13,@-R15
+    00000652 2FC6                   MOV.L       R12,@-R15
+    00000654 2FB6                   MOV.L       R11,@-R15
+    00000656 EB00                   MOV         #0,R11
+    00000658 DC3D                   MOV.L       L621+40,R12; _currentAttack
+    0000065A 2FA6                   MOV.L       R10,@-R15
+    0000065C 2F96                   MOV.L       R9,@-R15
+    0000065E 4F22                   STS.L       PR,@-R15
+    00000660 D93A                   MOV.L       L621+36,R9 ; _projectileIndex
+    00000662 7FF8                   ADD         #-8,R15
+    00000664 60C2                   MOV.L       @R12,R0
+    00000666 8800                   CMP/EQ      #0,R0
+    00000668 8D06                   BT/S        L512
+    0000066A 6E92                   MOV.L       @R9,R14
+    0000066C 8801                   CMP/EQ      #1,R0
+    0000066E 8919                   BT          L513
+    00000670 8802                   CMP/EQ      #2,R0
+    00000672 8947                   BT          L514
+    00000674 A09F                   BRA         L515
+    00000676 0009                   NOP
+    00000678              L512:                            ; case label 
+         Dodge.c   405        // I HATE THE FACT THAT YOU HAVE TO DECLARE VARIABLES AT THE START OF THE FUNCTION IN C
+         Dodge.c   406        #pragma region a whole bunch of variable declarations
+         Dodge.c   407        int mod;
+         Dodge.c   408        int mod2;
+         Dodge.c   409        int xPos;
+         Dodge.c   410        int direction;
+         Dodge.c   411        int directionX;
+         Dodge.c   412        int directionY;
+         Dodge.c   413        int i;
+         Dodge.c   414        int j;
+         Dodge.c   415        #pragma endregion
+         Dodge.c   416        switch (currentAttack)
+         Dodge.c   417        {
+         Dodge.c   418            case 0:
+         Dodge.c   419                mod = projectileIndex % 2;
+    00000678 60E3                   MOV         R14,R0
+    0000067A 4011                   CMP/PZ      R0
+    0000067C 8B01                   BF          L575
+    0000067E A005                   BRA         L576
+    00000680 C901                   AND         #1,R0
+    00000682              L575:                             
+    00000682 6007                   NOT         R0,R0
+
+
+
+
+SH SERIES C/C++ Compiler (Ver. 6.0C)                                                                 16-Mar-2023 17:13:34  PAGE   24
+
+
+SCT OFFSET   CODE       C LABEL     INSTRUCTION OPERAND    COMMENT
+
+    00000684 7001                   ADD         #1,R0
+    00000686 C901                   AND         #1,R0
+    00000688 6007                   NOT         R0,R0
+    0000068A 7001                   ADD         #1,R0
+    0000068C              L576:                             
+    0000068C 6403                   MOV         R0,R4
+         Dodge.c   420                xPos = mod == 0 ? 1 : 128 - 1;
+    0000068E 2448                   TST         R4,R4
+    00000690 8B01                   BF          L577
+    00000692 A001                   BRA         L578
+    00000694 EA01                   MOV         #1,R10
+    00000696              L577:                             
+    00000696 EA7F                   MOV         #127,R10
+    00000698              L578:                             
+         Dodge.c   421                direction = mod == 0 ? 1 : -1;
+    00000698 2448                   TST         R4,R4
+    0000069A 8B01                   BF          L622
+    0000069C A09D                   BRA         L615
+    0000069E 0009                   NOP
+    000006A0              L622:                             
+    000006A0 A09E                   BRA         L510
+    000006A2 EDFF                   MOV         #-1,R13
+    000006A4              L513:                            ; case label 
+         Dodge.c   422                SpawnProjectile(xPos, (projectileIndex + 1) * 4, 0, 0, (float)direction * 0.1f, 0);
+         Dodge.c   423                break;
+         Dodge.c   424            case 1:
+         Dodge.c   425                mod = projectileIndex % 2;
+    000006A4 60E3                   MOV         R14,R0
+    000006A6 4011                   CMP/PZ      R0
+    000006A8 8B01                   BF          L581
+    000006AA A005                   BRA         L582
+    000006AC C901                   AND         #1,R0
+    000006AE              L581:                             
+    000006AE 6007                   NOT         R0,R0
+    000006B0 7001                   ADD         #1,R0
+    000006B2 C901                   AND         #1,R0
+    000006B4 6007                   NOT         R0,R0
+    000006B6 7001                   ADD         #1,R0
+    000006B8              L582:                             
+    000006B8 6403                   MOV         R0,R4
+         Dodge.c   426                mod2 = (projectileIndex + 1) % 4;
+         Dodge.c   427                directionX = mod == 0 ? 1 : -1;
+    000006BA 2448                   TST         R4,R4
+    000006BC 8B01                   BF          L583
+    000006BE A001                   BRA         L584
+    000006C0 E301                   MOV         #1,R3
+    000006C2              L583:                             
+    000006C2 E3FF                   MOV         #-1,R3
+    000006C4              L584:                             
+    000006C4 2F32                   MOV.L       R3,@R15
+         Dodge.c   428                // directionY = mod2 < 2 ? 1 : -1;
+         Dodge.c   429                directionY = ((projectileIndex % 8) - 4);
+    000006C6 60E3                   MOV         R14,R0
+    000006C8 4011                   CMP/PZ      R0
+    000006CA 8B01                   BF          L585
+    000006CC A005                   BRA         L586
+    000006CE C907                   AND         #7,R0
+
+
+
+
+SH SERIES C/C++ Compiler (Ver. 6.0C)                                                                 16-Mar-2023 17:13:34  PAGE   25
+
+
+SCT OFFSET   CODE       C LABEL     INSTRUCTION OPERAND    COMMENT
+
+    000006D0              L585:                             
+    000006D0 6007                   NOT         R0,R0
+    000006D2 7001                   ADD         #1,R0
+    000006D4 C907                   AND         #7,R0
+    000006D6 6007                   NOT         R0,R0
+    000006D8 7001                   ADD         #1,R0
+    000006DA              L586:                             
+    000006DA 70FC                   ADD         #-4,R0
+         Dodge.c   430                SpawnProjectile(64, 32, (float)directionX * 2, (float)directionY, 0, 0);//Sign(-directionY) * 
+                         +0.1f);
+    000006DC D31D                   MOV.L       L621+44,R3 ; __itos
+    000006DE E200                   MOV         #0,R2
+    000006E0 1F01                   MOV.L       R0,@(4,R15)
+    000006E2 2F26                   MOV.L       R2,@-R15
+    000006E4 430B                   JSR         @R3
+    000006E6 2F26                   MOV.L       R2,@-R15
+    000006E8 D11A                   MOV.L       L621+44,R1 ; __itos
+    000006EA 6703                   MOV         R0,R7
+    000006EC 410B                   JSR         @R1
+    000006EE 50F2                   MOV.L       @(8,R15),R0
+    000006F0 D119                   MOV.L       L621+48,R1 ; H'40000000
+    000006F2 D31A                   MOV.L       L621+52,R3 ; __muls
+    000006F4 430B                   JSR         @R3
+    000006F6 0009                   NOP
+    000006F8 D519                   MOV.L       L621+56,R5 ; H'42000000
+    000006FA D40F                   MOV.L       L621+16,R4 ; H'42800000
+    000006FC BE32                   BSR         _SpawnProjectile
+    000006FE 6603                   MOV         R0,R6
+         Dodge.c   431                break;
+    00000700 A085                   BRA         L614
+    00000702 0009                   NOP
+    00000704              L514:                            ; case label 
+         Dodge.c   432            case 2:
+         Dodge.c   433                if(projectileIndex % 5 == 0) {
+    00000704 D217                   MOV.L       L621+60,R2 ; __modls
+    00000706 61E3                   MOV         R14,R1
+    00000708 420B                   JSR         @R2
+    0000070A E005                   MOV         #5,R0
+    0000070C 2008                   TST         R0,R0
+    0000070E 8901                   BT          L623
+    00000710 A07E                   BRA         L574
+    00000712 0009                   NOP
+    00000714              L623:                             
+         Dodge.c   434                    if(projectileIndex % 10 == 0) {
+    00000714 D213                   MOV.L       L621+60,R2 ; __modls
+    00000716 ED10                   MOV         #16,R13
+    00000718 61E3                   MOV         R14,R1
+    0000071A 420B                   JSR         @R2
+    0000071C E00A                   MOV         #10,R0
+    0000071E 2008                   TST         R0,R0
+    00000720 8B34                   BF          L588
+         Dodge.c   435                        for (i = 0; i < 16; i++)
+    00000722 6AB3                   MOV         R11,R10
+    00000724 A02E                   BRA         L589
+    00000726 6EB3                   MOV         R11,R14
+    00000728              L621:                             
+    00000728 <00000000>             .DATA.L     _projectiles
+
+
+
+
+SH SERIES C/C++ Compiler (Ver. 6.0C)                                                                 16-Mar-2023 17:13:34  PAGE   26
+
+
+SCT OFFSET   CODE       C LABEL     INSTRUCTION OPERAND    COMMENT
+
+    0000072C <00000000>             .DATA.L     __lts
+    00000730 43000000               .DATA.L     H'43000000
+    00000734 <00000000>             .DATA.L     __gts
+    00000738 42800000               .DATA.L     H'42800000
+    0000073C <00000000>             .DATA.L     __adds
+    00000740 <00000000>             .DATA.L     _playerX
+    00000744 <00000000>             .DATA.L     _playerY
+    00000748 <00000000>             .DATA.L     _quit
+    0000074C <00000000>             .DATA.L     _projectileIndex
+    00000750 <00000000>             .DATA.L     _currentAttack
+    00000754 <00000000>             .DATA.L     __itos
+    00000758 40000000               .DATA.L     H'40000000
+    0000075C <00000000>             .DATA.L     __muls
+    00000760 42000000               .DATA.L     H'42000000
+    00000764 <00000000>             .DATA.L     __modls
+    00000768              L590:                             
+         Dodge.c   436                        {
+         Dodge.c   437                            SpawnProjectile(i * 8, 0, 0, 2, 0, 0);
+    00000768 D745                   MOV.L       L624,R7    ; H'40000000
+    0000076A E300                   MOV         #0,R3
+    0000076C D245                   MOV.L       L624+4,R2  ; __itos
+    0000076E 6633                   MOV         R3,R6
+    00000770 2F36                   MOV.L       R3,@-R15
+    00000772 6533                   MOV         R3,R5
+    00000774 2F36                   MOV.L       R3,@-R15
+    00000776 420B                   JSR         @R2
+    00000778 60E3                   MOV         R14,R0
+    0000077A BDF3                   BSR         _SpawnProjectile
+    0000077C 6403                   MOV         R0,R4
+    0000077E 7F08                   ADD         #8,R15
+    00000780 7A01                   ADD         #1,R10
+    00000782 7E08                   ADD         #8,R14
+    00000784              L589:                             
+    00000784 3AD3                   CMP/GE      R13,R10
+    00000786 8BEF                   BF          L590
+    00000788 A042                   BRA         L574
+    0000078A 0009                   NOP
+    0000078C              L588:                             
+         Dodge.c   438                        }
+         Dodge.c   439                    }
+         Dodge.c   440                    else {
+         Dodge.c   441                        for (i = 0; i < 16; i++)
+    0000078C 6AB3                   MOV         R11,R10
+    0000078E A00E                   BRA         L592
+    00000790 EE04                   MOV         #4,R14
+    00000792              L593:                             
+         Dodge.c   442                        {
+         Dodge.c   443                            SpawnProjectile(i * 8 + 4, 64, 0, -2, 0, 0);
+    00000792 E200                   MOV         #0,R2
+    00000794 D73C                   MOV.L       L624+8,R7  ; H'C0000000
+    00000796 6623                   MOV         R2,R6
+    00000798 D53C                   MOV.L       L624+12,R5 ; H'42800000
+    0000079A 2F26                   MOV.L       R2,@-R15
+    0000079C 2F26                   MOV.L       R2,@-R15
+    0000079E D339                   MOV.L       L624+4,R3  ; __itos
+    000007A0 430B                   JSR         @R3
+    000007A2 60E3                   MOV         R14,R0
+
+
+
+
+SH SERIES C/C++ Compiler (Ver. 6.0C)                                                                 16-Mar-2023 17:13:34  PAGE   27
+
+
+SCT OFFSET   CODE       C LABEL     INSTRUCTION OPERAND    COMMENT
+
+    000007A4 BDDE                   BSR         _SpawnProjectile
+    000007A6 6403                   MOV         R0,R4
+    000007A8 7F08                   ADD         #8,R15
+    000007AA 7A01                   ADD         #1,R10
+    000007AC 7E08                   ADD         #8,R14
+    000007AE              L592:                             
+    000007AE 3AD3                   CMP/GE      R13,R10
+    000007B0 8BEF                   BF          L593
+         Dodge.c   444                        }
+         Dodge.c   445                    }
+         Dodge.c   446                    
+         Dodge.c   447                }
+         Dodge.c   448                break;
+    000007B2 A02D                   BRA         L574
+    000007B4 0009                   NOP
+    000007B6              L515:                            ; default label 
+         Dodge.c   449            default:
+         Dodge.c   450                mod2 = projectileIndex % 2;
+    000007B6 60E3                   MOV         R14,R0
+    000007B8 4011                   CMP/PZ      R0
+    000007BA 8B01                   BF          L594
+    000007BC A005                   BRA         L595
+    000007BE C901                   AND         #1,R0
+    000007C0              L594:                             
+    000007C0 6007                   NOT         R0,R0
+    000007C2 7001                   ADD         #1,R0
+    000007C4 C901                   AND         #1,R0
+    000007C6 6007                   NOT         R0,R0
+    000007C8 7001                   ADD         #1,R0
+    000007CA              L595:                             
+    000007CA 6403                   MOV         R0,R4
+         Dodge.c   451                xPos = mod2 == 0 ? 1 : 128 - 1;
+    000007CC 2448                   TST         R4,R4
+    000007CE 8B01                   BF          L596
+    000007D0 A001                   BRA         L597
+    000007D2 EA01                   MOV         #1,R10
+    000007D4              L596:                             
+    000007D4 EA7F                   MOV         #127,R10
+    000007D6              L597:                             
+         Dodge.c   452                direction = mod2 == 0 ? 1 : -1;
+    000007D6 2448                   TST         R4,R4
+    000007D8 8B01                   BF          L598
+    000007DA              L615:                             
+    000007DA A001                   BRA         L510
+    000007DC ED01                   MOV         #1,R13
+    000007DE              L598:                             
+    000007DE EDFF                   MOV         #-1,R13
+    000007E0              L510:
+         Dodge.c   453                SpawnProjectile(xPos, (projectileIndex + 1) * 4, 0, 0, (float)direction * 0.1f, 0);
+    000007E0 D328                   MOV.L       L624+4,R3  ; __itos
+    000007E2 E200                   MOV         #0,R2
+    000007E4 2F26                   MOV.L       R2,@-R15
+    000007E6 430B                   JSR         @R3
+    000007E8 60D3                   MOV         R13,R0
+    000007EA D129                   MOV.L       L624+16,R1 ; H'3DCCCCCD
+    000007EC D329                   MOV.L       L624+20,R3 ; __muls
+    000007EE 430B                   JSR         @R3
+
+
+
+
+SH SERIES C/C++ Compiler (Ver. 6.0C)                                                                 16-Mar-2023 17:13:34  PAGE   28
+
+
+SCT OFFSET   CODE       C LABEL     INSTRUCTION OPERAND    COMMENT
+
+    000007F0 0009                   NOP
+    000007F2 6723                   MOV         R2,R7
+    000007F4 D323                   MOV.L       L624+4,R3  ; __itos
+    000007F6 6623                   MOV         R2,R6
+    000007F8 2F06                   MOV.L       R0,@-R15
+    000007FA 60E3                   MOV         R14,R0
+    000007FC 7001                   ADD         #1,R0
+    000007FE 430B                   JSR         @R3
+    00000800 4008                   SHLL2       R0
+    00000802 6503                   MOV         R0,R5
+    00000804 D11F                   MOV.L       L624+4,R1  ; __itos
+    00000806 410B                   JSR         @R1
+    00000808 60A3                   MOV         R10,R0
+    0000080A BDAB                   BSR         _SpawnProjectile
+    0000080C 6403                   MOV         R0,R4
+         Dodge.c   454                break;
+    0000080E              L614:                             
+    0000080E 7F08                   ADD         #8,R15
+    00000810              L574:                             
+         Dodge.c   455        }
+         Dodge.c   456    
+         Dodge.c   457        projectileIndex++;
+    00000810 6392                   MOV.L       @R9,R3
+    00000812 7301                   ADD         #1,R3
+    00000814 2932                   MOV.L       R3,@R9
+         Dodge.c   458        if(projectileIndex > maxProjectiles) {
+    00000816 6133                   MOV         R3,R1
+    00000818 D01F                   MOV.L       L624+24,R0 ; _maxProjectiles
+    0000081A 6202                   MOV.L       @R0,R2
+    0000081C 3127                   CMP/GT      R2,R1
+    0000081E 8B0B                   BF          L600
+         Dodge.c   459            KillTimer(ID_USER_TIMER5); // stop this attack
+    00000820 D11E                   MOV.L       L624+28,R1 ; _KillTimer
+    00000822 410B                   JSR         @R1
+    00000824 E405                   MOV         #5,R4
+         Dodge.c   460            currentAttack++;
+    00000826 63C2                   MOV.L       @R12,R3
+         Dodge.c   461            if(currentAttack >= attacksTotal)
+    00000828 D01D                   MOV.L       L624+32,R0 ; _attacksTotal
+    0000082A 7301                   ADD         #1,R3
+    0000082C 2C32                   MOV.L       R3,@R12
+    0000082E 6133                   MOV         R3,R1
+    00000830 6202                   MOV.L       @R0,R2
+    00000832 3123                   CMP/GE      R2,R1
+    00000834 8B00                   BF          L600
+         Dodge.c   462                currentAttack = 0;
+    00000836 2CB2                   MOV.L       R11,@R12
+    00000838              L600:                             
+         Dodge.c   463        }
+         Dodge.c   464    }
+    00000838 7F08                   ADD         #8,R15
+    0000083A 4F26                   LDS.L       @R15+,PR
+    0000083C 69F6                   MOV.L       @R15+,R9
+    0000083E 6AF6                   MOV.L       @R15+,R10
+    00000840 6BF6                   MOV.L       @R15+,R11
+    00000842 6CF6                   MOV.L       @R15+,R12
+    00000844 6DF6                   MOV.L       @R15+,R13
+
+
+
+
+SH SERIES C/C++ Compiler (Ver. 6.0C)                                                                 16-Mar-2023 17:13:34  PAGE   29
+
+
+SCT OFFSET   CODE       C LABEL     INSTRUCTION OPERAND    COMMENT
+
+    00000846 000B                   RTS
+    00000848 6EF6                   MOV.L       @R15+,R14
+         Dodge.c   465    // the next "attack"
+         Dodge.c   466    void NextProjectiles() {
+    0000084A              _NextProjectiles:                ; function: NextProjectiles
+                                                           ; frame size=0
+         Dodge.c   467        projectileIndex = 0;
+    0000084A E300                   MOV         #0,R3
+    0000084C D215                   MOV.L       L624+36,R2 ; _projectileIndex
+    0000084E 2232                   MOV.L       R3,@R2
+         Dodge.c   468    
+         Dodge.c   469        // note maxProjectiles can't be more than 50 or it'll run into the next attack and cause issues
+         Dodge.c   470        switch (currentAttack)
+    00000850 D411                   MOV.L       L624+24,R4 ; _maxProjectiles
+    00000852 D315                   MOV.L       L624+40,R3 ; _currentAttack
+    00000854 6032                   MOV.L       @R3,R0
+    00000856 8800                   CMP/EQ      #0,R0
+    00000858 8D0C                   BT/S        L616
+    0000085A E510                   MOV         #16,R5
+    0000085C 8801                   CMP/EQ      #1,R0
+    0000085E 8903                   BT          L517
+    00000860 8802                   CMP/EQ      #2,R0
+    00000862 8904                   BT          L518
+    00000864 A006                   BRA         L616
+    00000866 0009                   NOP
+    00000868              L517:                            ; case label 
+         Dodge.c   471        {
+         Dodge.c   472            case 0:
+         Dodge.c   473                maxProjectiles = 16;
+         Dodge.c   474                break;
+         Dodge.c   475            case 1:
+         Dodge.c   476                maxProjectiles = 32;
+    00000868 E020                   MOV         #32,R0
+         Dodge.c   477                break;
+    0000086A A004                   BRA         L602
+    0000086C 2402                   MOV.L       R0,@R4
+    0000086E              L518:                            ; case label 
+         Dodge.c   478            case 2:
+         Dodge.c   479                maxProjectiles = 10;
+    0000086E E10A                   MOV         #10,R1
+         Dodge.c   480                break;
+    00000870 A001                   BRA         L602
+    00000872 2412                   MOV.L       R1,@R4
+    00000874              L616:                             
+         Dodge.c   481            default:
+         Dodge.c   482                maxProjectiles = 16;
+    00000874 2452                   MOV.L       R5,@R4
+    00000876              L602:                             
+         Dodge.c   483                break;
+         Dodge.c   484        }
+         Dodge.c   485    
+         Dodge.c   486        SetTimer(ID_USER_TIMER5, 100, SpawnNext);
+    00000876 E564                   MOV         #100,R5
+    00000878 D30D                   MOV.L       L624+48,R3 ; _SetTimer
+    0000087A D60C                   MOV.L       L624+44,R6 ; _SpawnNext
+    0000087C 432B                   JMP         @R3
+    0000087E E405                   MOV         #5,R4
+
+
+
+
+SH SERIES C/C++ Compiler (Ver. 6.0C)                                                                 16-Mar-2023 17:13:34  PAGE   30
+
+
+SCT OFFSET   CODE       C LABEL     INSTRUCTION OPERAND    COMMENT
+
+    00000880              L624:                             
+    00000880 40000000               .DATA.L     H'40000000
+    00000884 <00000000>             .DATA.L     __itos
+    00000888 C0000000               .DATA.L     H'C0000000
+    0000088C 42800000               .DATA.L     H'42800000
+    00000890 3DCCCCCD               .DATA.L     H'3DCCCCCD
+    00000894 <00000000>             .DATA.L     __muls
+    00000898 <00000000>             .DATA.L     _maxProjectiles
+    0000089C <00000000>             .DATA.L     _KillTimer
+    000008A0 <00000000>             .DATA.L     _attacksTotal
+    000008A4 <00000000>             .DATA.L     _projectileIndex
+    000008A8 <00000000>             .DATA.L     _currentAttack
+    000008AC <00000000>             .DATA.L     _SpawnNext
+    000008B0 <00000000>             .DATA.L     _SetTimer
+         Dodge.c   487    }
+         Dodge.c   488    
+         Dodge.c   489    #pragma endregion
+         Dodge.c   490    
+         Dodge.c   491    #pragma endregion
+         Dodge.c   492    
+         Dodge.c   493    /** Add-in entry point
+         Dodge.c   494     * 
+         Dodge.c   495     * Parameters: app_mode - Is launched from the main menu
+         Dodge.c   496     *             strip_no - Strip number from eActivity
+         Dodge.c   497     * 
+         Dodge.c   498     * Returns:    NOT error
+         Dodge.c   499     */
+         Dodge.c   500    // Start function
+         Dodge.c   501    int AddIn_main(int app_mode, unsigned short strip_no)
+    000008B4              _AddIn_main:                     ; function: AddIn_main
+                                                           ; frame size=16
+    000008B4 2FE6                   MOV.L       R14,@-R15
+    000008B6 4F22                   STS.L       PR,@-R15
+         Dodge.c   502    {
+         Dodge.c   503        unsigned int i, j; // Iteration variables
+         Dodge.c   504        unsigned char str[3];
+         Dodge.c   505        unsigned int key;  // Keyboard input
+         Dodge.c   506    
+         Dodge.c   507        // Clear out the display
+         Dodge.c   508        Bdisp_AllClr_DDVRAM();
+    000008B8 D322                   MOV.L       L625+2,R3  ; _Bdisp_AllClr_DDVRAM
+    000008BA 7FF8                   ADD         #-8,R15
+    000008BC 430B                   JSR         @R3
+    000008BE 0009                   NOP
+         Dodge.c   509    
+         Dodge.c   510        // Set up timers for rendering and ball
+         Dodge.c   511        SetTimer(ID_USER_TIMER1, 50, RenderScreen);
+    000008C0 DE21                   MOV.L       L625+6,R14 ; _SetTimer
+    000008C2 E532                   MOV         #50,R5
+    000008C4 D621                   MOV.L       L625+10,R6 ; _RenderScreen
+    000008C6 4E0B                   JSR         @R14
+    000008C8 E401                   MOV         #1,R4
+         Dodge.c   512        SetTimer(ID_USER_TIMER2, 50, Controls);
+    000008CA E532                   MOV         #50,R5
+    000008CC D620                   MOV.L       L625+14,R6 ; _Controls
+    000008CE 4E0B                   JSR         @R14
+    000008D0 E402                   MOV         #2,R4
+
+
+
+
+SH SERIES C/C++ Compiler (Ver. 6.0C)                                                                 16-Mar-2023 17:13:34  PAGE   31
+
+
+SCT OFFSET   CODE       C LABEL     INSTRUCTION OPERAND    COMMENT
+
+         Dodge.c   513        SetTimer(ID_USER_TIMER3, 50, Physics);
+    000008D2 E532                   MOV         #50,R5
+    000008D4 D61F                   MOV.L       L625+18,R6 ; _Physics
+    000008D6 4E0B                   JSR         @R14
+    000008D8 E403                   MOV         #3,R4
+         Dodge.c   514        SetTimer(ID_USER_TIMER4, 5000, NextProjectiles);
+    000008DA D61F                   MOV.L       L625+22,R6 ; _NextProjectiles
+    000008DC 9531                   MOV.W       L625,R5    ; H'1388
+    000008DE 4E0B                   JSR         @R14
+    000008E0 E404                   MOV         #4,R4
+         Dodge.c   515    
+         Dodge.c   516        // Set quit handler
+         Dodge.c   517        SetQuitHandler(AppQuit);
+    000008E2 D41E                   MOV.L       L625+26,R4 ; _AppQuit
+    000008E4 D21E                   MOV.L       L625+30,R2 ; _SetQuitHandler
+    000008E6 420B                   JSR         @R2
+    000008E8 0009                   NOP
+         Dodge.c   518    
+         Dodge.c   519        // The main thread manages the keys
+         Dodge.c   520        while (IsKeyUp(KEY_CTRL_MENU))
+    000008EA A01D                   BRA         L603
+    000008EC 0009                   NOP
+    000008EE              L604:                             
+         Dodge.c   521        {
+         Dodge.c   522            int keyResp = GetKeyWait(KEYWAIT_HALTON_TIMEROFF, 0, 0, &key);
+    000008EE 67F3                   MOV         R15,R7
+    000008F0 DE1C                   MOV.L       L625+34,R14; _GetKeyWait
+    000008F2 E600                   MOV         #0,R6
+    000008F4 6563                   MOV         R6,R5
+    000008F6 4E0B                   JSR         @R14
+    000008F8 6463                   MOV         R6,R4
+         Dodge.c   523        
+         Dodge.c   524            if (keyResp == KEYREP_KEYEVENT)
+    000008FA 8801                   CMP/EQ      #1,R0
+    000008FC 8F06                   BF/S        L605
+    000008FE 6403                   MOV         R0,R4
+         Dodge.c   525            {
+         Dodge.c   526                if (key == KEY_CTRL_MENU || key == KEY_CTRL_EXIT)
+    00000900 60F2                   MOV.L       @R15,R0
+    00000902 8830                   CMP/EQ      #48,R0
+    00000904 890C                   BT          L511
+    00000906 60F2                   MOV.L       @R15,R0
+    00000908 882F                   CMP/EQ      #47,R0
+    0000090A 8909                   BT          L511
+    0000090C              L605:                             
+         Dodge.c   527                {
+         Dodge.c   528                    AppQuit();
+         Dodge.c   529                    break;
+         Dodge.c   530                }
+         Dodge.c   531            }
+         Dodge.c   532    
+         Dodge.c   533            if (IsKeyDown(KEY_CTRL_MENU) || IsKeyDown(KEY_CTRL_EXIT))
+    0000090C BC16                   BSR         _KeyDown
+    0000090E E430                   MOV         #48,R4
+    00000910 600C                   EXTU.B      R0,R0
+    00000912 2008                   TST         R0,R0
+    00000914 8B04                   BF          L511
+
+
+
+
+SH SERIES C/C++ Compiler (Ver. 6.0C)                                                                 16-Mar-2023 17:13:34  PAGE   32
+
+
+SCT OFFSET   CODE       C LABEL     INSTRUCTION OPERAND    COMMENT
+
+    00000916 BC11                   BSR         _KeyDown
+    00000918 E42F                   MOV         #47,R4
+    0000091A 600C                   EXTU.B      R0,R0
+    0000091C 2008                   TST         R0,R0
+    0000091E 8903                   BT          L603
+    00000920              L511:
+         Dodge.c   534            {
+         Dodge.c   535                AppQuit();
+    00000920 BC96                   BSR         _AppQuit
+    00000922 0009                   NOP
+         Dodge.c   536                break;
+    00000924 A005                   BRA         L608
+    00000926 0009                   NOP
+    00000928              L603:                             
+    00000928 BC08                   BSR         _KeyDown
+    0000092A E430                   MOV         #48,R4
+    0000092C 600C                   EXTU.B      R0,R0
+    0000092E 2008                   TST         R0,R0
+    00000930 89DD                   BT          L604
+    00000932              L608:                             
+         Dodge.c   537            }
+         Dodge.c   538        }
+         Dodge.c   539    
+         Dodge.c   540        // Good job on somehow breaking the loop. Cleanup time.
+         Dodge.c   541        AppQuit();
+    00000932 BC8D                   BSR         _AppQuit
+    00000934 0009                   NOP
+         Dodge.c   542    
+         Dodge.c   543        // At the end, return application status
+         Dodge.c   544        return true;
+    00000936 D30C                   MOV.L       L625+38,R3 ; _true
+    00000938 6030                   MOV.B       @R3,R0
+         Dodge.c   545    }
+    0000093A 7F08                   ADD         #8,R15
+    0000093C 4F26                   LDS.L       @R15+,PR
+    0000093E 000B                   RTS
+    00000940 6EF6                   MOV.L       @R15+,R14
+    00000942              L625:                             
+    00000942 1388                   .DATA.W     H'1388
+    00000944 <00000000>             .DATA.L     _Bdisp_AllClr_DDVRAM
+    00000948 <00000000>             .DATA.L     _SetTimer
+    0000094C <00000000>             .DATA.L     _RenderScreen
+    00000950 <00000000>             .DATA.L     _Controls
+    00000954 <00000000>             .DATA.L     _Physics
+    00000958 <00000000>             .DATA.L     _NextProjectiles
+    0000095C <00000000>             .DATA.L     _AppQuit
+    00000960 <00000000>             .DATA.L     _SetQuitHandler
+    00000964 <00000000>             .DATA.L     _GetKeyWait
+    00000968 <00000000>             .DATA.L     _true
+         Dodge.c   546    
+         Dodge.c   547    #pragma region Do not touch
+         Dodge.c   548    
+         Dodge.c   549    // Source code from here down should not be changed according to the
+         Dodge.c   550    // CASIO SDK sample project.
+         Dodge.c   551    
+         Dodge.c   552    #pragma section _BR_Size
+         Dodge.c   553    unsigned long BR_Size;
+
+
+
+
+SH SERIES C/C++ Compiler (Ver. 6.0C)                                                                 16-Mar-2023 17:13:34  PAGE   33
+
+
+SCT OFFSET   CODE       C LABEL     INSTRUCTION OPERAND    COMMENT
+
+         Dodge.c   554    #pragma section
+         Dodge.c   555    
+         Dodge.c   556    #pragma section _TOP
+         Dodge.c   557    
+         Dodge.c   558    //****************************************************************************
+         Dodge.c   559    //  InitializeSystem
+         Dodge.c   560    //
+         Dodge.c   561    //  param   :   isAppli   : 1 = Application / 0 = eActivity
+         Dodge.c   562    //              OptionNum : Option Number (only eActivity)
+         Dodge.c   563    //
+         Dodge.c   564    //  retval  :   1 = No error / 0 = Error
+         Dodge.c   565    //
+         Dodge.c   566    //****************************************************************************
+         Dodge.c   567    int InitializeSystem(int isAppli, unsigned short OptionNum)
+P_T 00000000              _InitializeSystem:               ; function: InitializeSystem
+                                                           ; frame size=0
+         Dodge.c   568    {
+         Dodge.c   569        return INIT_ADDIN_APPLICATION(isAppli, OptionNum);
+    00000000 D301                   MOV.L       L626+2,R3  ; _INIT_ADDIN_APPLICATION
+    00000002 432B                   JMP         @R3
+    00000004 0009                   NOP
+    00000006              L626:                             
+    00000006 0000                   .DATA.W     0
+    00000008 <00000000>             .DATA.L     _INIT_ADDIN_APPLICATION
+         Dodge.c   570    }
+         Dodge.c   571    
+         Dodge.c   572    #pragma section
+         Dodge.c   573    
+         Dodge.c   574    #pragma endregion
+C   00000000              _sc0015:                         ; static: sc0015
+    00000000 D201D00242             .DATA.L     H'D201D002,H'422B0009,H'80010070,H'00000015
+             2B00098001   
+             0070000000   
+             15           
+    00000010              _true:                           ; static: true
+    00000010 01                     .DATA.B     H'01
+    00000011              _false:                          ; static: false
+    00000011 00                     .DATA.B     H'00
+    00000012              _DISPLAY_WIDTH:                  ; static: DISPLAY_WIDTH
+    00000012 80                     .DATA.B     H'80
+    00000013              _DISPLAY_HEIGHT:                 ; static: DISPLAY_HEIGHT
+    00000013 40                     .DATA.B     H'40
+    00000014              _DISPLAY_CENTER_X:               ; static: DISPLAY_CENTER_X
+    00000014 40                     .DATA.B     H'40
+    00000015              _DISPLAY_CENTER_Y:               ; static: DISPLAY_CENTER_Y
+    00000015 20                     .DATA.B     H'20
+    00000016 00000002               .RES.W      1
+    00000018              _attacksTotal:                   ; static: attacksTotal
+    00000018 00000003               .DATA.L     H'00000003
+D   00000000              _playerHealth:                   ; static: playerHealth
+    00000000 00000080               .DATA.L     H'00000080
+    00000004              _playerX:                        ; static: playerX
+    00000004 00000040               .DATA.L     H'00000040
+    00000008              _playerY:                        ; static: playerY
+    00000008 00000020               .DATA.L     H'00000020
+    0000000C              _currentAttack:                  ; static: currentAttack
+    0000000C 00000000               .DATA.L     H'00000000
+
+
+
+
+SH SERIES C/C++ Compiler (Ver. 6.0C)                                                                 16-Mar-2023 17:13:34  PAGE   34
+
+
+SCT OFFSET   CODE       C LABEL     INSTRUCTION OPERAND    COMMENT
+
+    00000010              _quit:                           ; static: quit
+    00000010 00                     .DATA.B     H'00
+B   00000000              _projectiles:                    ; static: projectiles
+    00000000 00000E00               .RES.L      896
+    00000E00              _projectileIndex:                ; static: projectileIndex
+    00000E00 00000004               .RES.L      1
+    00000E04              _maxProjectiles:                 ; static: maxProjectiles
+    00000E04 00000004               .RES.L      1
+B_B 00000000              _BR_Size:                        ; static: BR_Size
+    00000000 00000004               .RES.L      1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SH SERIES C/C++ Compiler (Ver. 6.0C)                                                                 16-Mar-2023 17:13:34  PAGE    1
+
+
+******** STATISTICS INFORMATION ********
+
+
+********** ERROR INFORMATION ***********
+
+NUMBER OF ERRORS:           0
+NUMBER OF WARNINGS:        59
+
+
+
+
+******* SOURCE LINE INFORMATION ********
+
+COMPILED SOURCE LINE:      574
+
+
+
+******* SECTION SIZE INFORMATION *******
+
+PROGRAM  SECTION (P):                               0000096C Byte(s)
+PROGRAM  SECTION (P_BR_Size):                       00000000 Byte(s)
+PROGRAM  SECTION (P_TOP):                           0000000C Byte(s)
+CONSTANT SECTION (C):                               0000001C Byte(s)
+CONSTANT SECTION (C_BR_Size):                       00000000 Byte(s)
+CONSTANT SECTION (C_TOP):                           00000000 Byte(s)
+DATA     SECTION (D):                               00000011 Byte(s)
+DATA     SECTION (D_BR_Size):                       00000000 Byte(s)
+DATA     SECTION (D_TOP):                           00000000 Byte(s)
+BSS      SECTION (B):                               00000E08 Byte(s)
+BSS      SECTION (B_BR_Size):                       00000004 Byte(s)
+BSS      SECTION (B_TOP):                           00000000 Byte(s)
+
+ TOTAL PROGRAM SIZE: 000017B1 Byte(s)
+
+
+
+********** LABEL INFORMATION ***********
+
+NUMBER OF EXTERNAL REFERENCE SYMBOLS:           21
+NUMBER OF EXTERNAL DEFINITION SYMBOLS:          37
+NUMBER OF INTERNAL/EXTERNAL SYMBOLS:           148
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*** COMMAND PARAMETER ***
+
+
+  -subcommand=C:\Users\Amir\AppData\Local\Temp\hmk782C.tmp 
+
