@@ -1,3 +1,5 @@
+// the skeleton of this code was stolen from https://github.com/itisrazza/casio-pong
+
 
 // Import some libraries
 #include "stdio.h"    // Standard IO
@@ -273,6 +275,7 @@ void DrawProjectiles()
             Bdisp_SetPoint_VRAM(x1, y1, 1);
             Bdisp_SetPoint_VRAM(x2, y2, 1);
 
+    // Bresenham's Line Generation Algorithm implementation stolen from https://www.geeksforgeeks.org/bresenhams-line-generation-algorithm/
             dx = abs(x2 - x1);
             dy = abs(y2 - y1);
 
@@ -396,6 +399,7 @@ void RenderScreen()
 }
 
 void MoveProjectile(int arrayIndex, float x1, float y1, float x2, float y2) {
+    // Bresenham's Line Generation Algorithm implementation stolen from https://www.geeksforgeeks.org/bresenhams-line-generation-algorithm/
     float dx;
     float dy;
     int decide;
