@@ -194,6 +194,7 @@ struct Projectile {
     float xAcceleration;
     float yAcceleration;
     int framesAlive;
+    float trackingForce;
 };
 struct Projectile projectiles[128];
 
@@ -206,7 +207,7 @@ int playerY = 32;
 int projectileIndex;
 int maxProjectiles;
 int currentAttack = 0;
-const int attacksTotal = 4;
+const int attacksTotal = 6;
 
 char paused = 1;
 
@@ -503,21 +504,16 @@ void NotDamaged() {
 
 void DrawHealthBar() {
     size_t i;
-    for (i = 0; i < playerHealth; i++)
+    for (i = 0; i < playerHealth; i++) // health bar
         Bdisp_SetPoint_VRAM(i, 63, 1);
     for (i = 0; i < (timer % 100); i++) // bar until next attack
         Bdisp_SetPoint_VRAM(14 + i, 1, 1); // + 14 so that it's centered (half of 28) (128-100=28) (screen is 128 wide)
-    // debug bars
-    // for (i = 0; i < projectileIndex; i++)
-    //     Bdisp_SetPoint_VRAM(i, 1, 1);
-    // for (i = 0; i < maxProjectiles; i++)
-    //     Bdisp_SetPoint_VRAM(i, 2, 1);
 }
 
 #pragma endregion
 
 // spawn a new projectile at x and y with velocity and acceleration
-void SpawnProjectile(float x, float y, float xVelocity, float yVelocity, float xAcceleration, float yAcceleration) {
+void SpawnProjectile(float x, float y, float xVelocity, float yVelocity, float xAcceleration, float yAcceleration, float trackingForce) {
     size_t i;
     for (i = 0; i < 128; i++)
     {
@@ -529,6 +525,7 @@ void SpawnProjectile(float x, float y, float xVelocity, float yVelocity, float x
             projectiles[i].yVelocity = yVelocity;
             projectiles[i].xAcceleration = xAcceleration;
             projectiles[i].yAcceleration = yAcceleration;
+            projectiles[i].trackingForce = trackingForce;
             // enable it
             projectiles[i].enabled = true;
             projectiles[i].framesAlive = 0;
@@ -648,6 +645,15 @@ void Physics()
                 projectiles[i].x + projectiles[i].xVelocity,
                 projectiles[i].y + projectiles[i].yVelocity
             );
+            // update acceleration if this is a tracking projectile
+            if(projectiles[i].trackingForce > 0) { // maybe != 0 is better but I don't see why I'd have a projectile go away from the player
+                float xDif = (float)playerX - projectiles[i].x;
+                float yDif = (float)playerY - projectiles[i].y;
+                xDif = xDif * 0.01f * projectiles[i].trackingForce;
+                yDif = yDif * 0.01f * projectiles[i].trackingForce;
+                projectiles[i].xAcceleration = xDif;
+                projectiles[i].yAcceleration = yDif;
+            }
             // update velocity
             projectiles[i].xVelocity += projectiles[i].xAcceleration;
             projectiles[i].yVelocity += projectiles[i].yAcceleration;
@@ -715,39 +721,59 @@ void SpawnNext() {
             mod = projectileIndex % 2;
             xPos = mod == 0 ? 1 : 128 - 1;
             direction = mod == 0 ? 1 : -1;
-            SpawnProjectile(xPos, (projectileIndex + 1) * 4, 0, 0, direction * 0.1f, 0);
+            SpawnProjectile(xPos, (projectileIndex + 1) * 4, 0, 0, direction * 0.1f, 0, 0);
             break;
         case 1: // circle, constant speed
             directionX = (((projectileIndex + 8) % 16) - 8);
             directionY = ((projectileIndex % 16) - 8);
-            SpawnProjectile(64, 32, directionX, directionY, 0, 0);
-            SpawnProjectile(64, 32, -directionX, directionY, 0, 0);
+            SpawnProjectile(64, 32, directionX, directionY, 0, 0, 0);
+            SpawnProjectile(64, 32, -directionX, directionY, 0, 0, 0);
             break;
         case 2: // vertically from either side, constant speed
             if(projectileIndex % 5 == 0) {
                 if(projectileIndex % 10 == 0) {
                     for (i = 0; i < 16; i++)
                     {
-                        SpawnProjectile(i * 8, 0, 0, 2, 0, 0);
+                        SpawnProjectile(i * 8, 0, 0, 2, 0, 0, 0);
                     }
                 }
                 else {
                     for (i = 0; i < 16; i++)
                     {
-                        SpawnProjectile(i * 8 + 4, 64, 0, -2, 0, 0);
+                        SpawnProjectile(i * 8 + 4, 64, 0, -2, 0, 0, 0);
                     }
                 }
                 
             }
             break;
         case 3: // random directions, accelerate back to center
-            for (i = 0; i < 16; i++)
+            for (i = 0; i < 24; i++)
             {
                 xPos = randomInt(128);
                 yPos = randomInt(64);
                 directionX = (xPos - 64) * 0.01f  * 8;
                 directionY = (yPos - 32) * 0.02f * 8;
-                SpawnProjectile(64, 32, directionX, directionY, -directionX * 0.04f, -directionY * 0.04f);
+                SpawnProjectile(64, 32, directionX, directionY, -directionX * 0.04f, -directionY * 0.04f, 0);
+            }
+            
+            break;
+        case 4: // spawn a bunch of tracking projectiles around the screen
+            for (i = 0; i < 8; i++)
+            {
+                xPos = randomInt(128);
+                yPos = randomInt(64);
+                SpawnProjectile(xPos, yPos, 0, 0, 0, 0, 0.3);
+            }
+            
+            break;
+        case 5: // continuously spawn projectiles with an initial direction towards the player
+            if(projectileIndex % 5 == 0)
+            {
+                xPos = randomInt(128);
+                yPos = randomInt(64);
+                directionX = ((float)playerX - xPos) * 0.01f;
+                directionY = ((float)playerY - yPos) * 0.02f;
+                SpawnProjectile(xPos, yPos, 0, 0, directionX, directionY, 0);
             }
             
             break;
@@ -755,7 +781,7 @@ void SpawnNext() {
             mod2 = projectileIndex % 2;
             xPos = mod2 == 0 ? 1 : 128 - 1;
             direction = mod2 == 0 ? 1 : -1;
-            SpawnProjectile(xPos, (projectileIndex + 1) * 4, 0, 0, (float)direction * 0.1f, 0);
+            SpawnProjectile(xPos, (projectileIndex + 1) * 4, 0, 0, (float)direction * 0.1f, 0, 0);
             break;
     }
 
@@ -784,7 +810,13 @@ void NextProjectiles() {
             maxProjectiles = 15;
             break;
         case 3:
-            maxProjectiles = 2;
+            maxProjectiles = 1;
+            break;
+        case 4:
+            maxProjectiles = 1;
+            break;
+        case 5:
+            maxProjectiles = 35;
             break;
         default:
             maxProjectiles = 16;
