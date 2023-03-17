@@ -1,4 +1,4 @@
-;HITACHI OPTIMIZING LINKAGE EDITOR GENERATED FILE 2023.03.16
+;HITACHI OPTIMIZING LINKAGE EDITOR GENERATED FILE 2023.03.17
 ;fsymbol = P
 
 ;SECTION NAME = P
@@ -22,134 +22,138 @@ _Max: .equ h'0030045c
 _Min: .equ h'0030046a
  .export _AppQuit
 _AppQuit: .equ h'00300478
+ .export _DrawImage
+_DrawImage: .equ h'003004d4
+ .export _RenderMainMenu
+_RenderMainMenu: .equ h'0030053a
  .export _DrawProjectiles
-_DrawProjectiles: .equ h'003004d4
+_DrawProjectiles: .equ h'0030057c
  .export _DrawPlayer
-_DrawPlayer: .equ h'003006d4
+_DrawPlayer: .equ h'0030077c
  .export _DrawHealthBar
-_DrawHealthBar: .equ h'0030071c
+_DrawHealthBar: .equ h'003007c4
  .export _SpawnProjectile
-_SpawnProjectile: .equ h'00300774
+_SpawnProjectile: .equ h'0030081c
  .export _IsCollidingWithPlayer
-_IsCollidingWithPlayer: .equ h'003007be
+_IsCollidingWithPlayer: .equ h'00300866
  .export _RenderScreen
-_RenderScreen: .equ h'0030080e
+_RenderScreen: .equ h'003008b6
  .export _MoveProjectile
-_MoveProjectile: .equ h'00300858
+_MoveProjectile: .equ h'00300900
  .export _Physics
-_Physics: .equ h'00300a28
+_Physics: .equ h'00300ad0
  .export _Controls
-_Controls: .equ h'00300b2c
+_Controls: .equ h'00300bd4
  .export _SpawnNext
-_SpawnNext: .equ h'00300b86
+_SpawnNext: .equ h'00300c2e
  .export _NextProjectiles
-_NextProjectiles: .equ h'00300d70
+_NextProjectiles: .equ h'00300e18
  .export _AddIn_main
-_AddIn_main: .equ h'00300da6
+_AddIn_main: .equ h'00300e4e
  .export ___LINK_PROTECT
-___LINK_PROTECT: .equ h'00300e84
+___LINK_PROTECT: .equ h'00300f70
  .export _SetQuitHandler
-_SetQuitHandler: .equ h'00300e88
+_SetQuitHandler: .equ h'00300f74
  .export _OnAppCloseDefault
-_OnAppCloseDefault: .equ h'00300e8e
+_OnAppCloseDefault: .equ h'00300f7a
  .export __INITSCT_ADDIN
-__INITSCT_ADDIN: .equ h'00300ee2
+__INITSCT_ADDIN: .equ h'00300fce
  .export _INIT_ADDIN_APPLICATION
-_INIT_ADDIN_APPLICATION: .equ h'00300f2a
+_INIT_ADDIN_APPLICATION: .equ h'00301016
  .export __adds
-__adds: .equ h'00300fa6
+__adds: .equ h'00301092
  .export __subs
-__subs: .equ h'00300fa0
+__subs: .equ h'0030108c
  .export __ges
-__ges: .equ h'0030120c
+__ges: .equ h'003012f8
  .export __gts
-__gts: .equ h'00301284
+__gts: .equ h'00301370
  .export __itos
-__itos: .equ h'003012fc
+__itos: .equ h'003013e8
  .export __les
-__les: .equ h'00301354
+__les: .equ h'00301440
  .export __lts
-__lts: .equ h'003013cc
+__lts: .equ h'003014b8
  .export __muls
-__muls: .equ h'00301444
+__muls: .equ h'00301530
  .export __stou
-__stou: .equ h'00301584
+__stou: .equ h'00301670
  .export __stoi
-__stoi: .equ h'00301584
+__stoi: .equ h'00301670
  .export __divls
-__divls: .equ h'003015dc
+__divls: .equ h'003016c8
  .export __modls
-__modls: .equ h'00301690
- .export _abs
-_abs: .equ h'00301758
- .export _memcpy
-_memcpy: .equ h'00301768
- .export _Bdel_cychdr
-_Bdel_cychdr: .equ h'00301828
- .export _Bdisp_AllClr_DDVRAM
-_Bdisp_AllClr_DDVRAM: .equ h'00301838
- .export _Bdisp_AllClr_VRAM
-_Bdisp_AllClr_VRAM: .equ h'00301848
- .export _Bdisp_PutDisp_DD
-_Bdisp_PutDisp_DD: .equ h'00301858
- .export _Bdisp_SetPoint_VRAM
-_Bdisp_SetPoint_VRAM: .equ h'00301868
- .export _BfileFLS_CloseFile
-_BfileFLS_CloseFile: .equ h'00301878
- .export _Bkey_Set_RepeatTime_Default
-_Bkey_Set_RepeatTime_Default: .equ h'00301888
- .export _CallbackAtQuitMainFunction
-_CallbackAtQuitMainFunction: .equ h'00301898
- .export _flsFindClose
-_flsFindClose: .equ h'003018a8
- .export _GetKey
-_GetKey: .equ h'003018b8
- .export _GLibAddinAplExecutionCheck
-_GLibAddinAplExecutionCheck: .equ h'003018c8
- .export _Hmem_SetMMU
-_Hmem_SetMMU: .equ h'003018d8
- .export _GetKeyWait
-_GetKeyWait: .equ h'003018e8
- .export _Bkey_GetKeyTableInfo
-_Bkey_GetKeyTableInfo: .equ h'00301928
- .export _KeyCodeConvert
-_KeyCodeConvert: .equ h'00301984
- .export __Delay
-__Delay: .equ h'003019fc
- .export _Hkey_Check_Key_SDK
-_Hkey_Check_Key_SDK: .equ h'00301a84
- .export _IsKeyDown
-_IsKeyDown: .equ h'00301bb0
- .export _IsKeyUp
-_IsKeyUp: .equ h'00301be0
- .export _GetSDKLibraryVersion
-_GetSDKLibraryVersion: .equ h'00301c2c
- .export _SetTimer
-_SetTimer: .equ h'00301c32
- .export _KillTimer
-_KillTimer: .equ h'00301c86
- .export _Sleep
-_Sleep: .equ h'00301cca
+__modls: .equ h'0030177c
  .export __slow_mvn
-__slow_mvn: .equ h'00301d2c
+__slow_mvn: .equ h'00301844
+ .export _abs
+_abs: .equ h'0030187c
+ .export _memcpy
+_memcpy: .equ h'0030188c
+ .export _Bdel_cychdr
+_Bdel_cychdr: .equ h'0030194c
+ .export _Bdisp_AllClr_DDVRAM
+_Bdisp_AllClr_DDVRAM: .equ h'0030195c
+ .export _Bdisp_AllClr_VRAM
+_Bdisp_AllClr_VRAM: .equ h'0030196c
+ .export _Bdisp_PutDisp_DD
+_Bdisp_PutDisp_DD: .equ h'0030197c
+ .export _Bdisp_SetPoint_VRAM
+_Bdisp_SetPoint_VRAM: .equ h'0030198c
+ .export _BfileFLS_CloseFile
+_BfileFLS_CloseFile: .equ h'0030199c
+ .export _Bkey_Set_RepeatTime_Default
+_Bkey_Set_RepeatTime_Default: .equ h'003019ac
+ .export _CallbackAtQuitMainFunction
+_CallbackAtQuitMainFunction: .equ h'003019bc
+ .export _flsFindClose
+_flsFindClose: .equ h'003019cc
+ .export _GetKey
+_GetKey: .equ h'003019dc
+ .export _GLibAddinAplExecutionCheck
+_GLibAddinAplExecutionCheck: .equ h'003019ec
+ .export _Hmem_SetMMU
+_Hmem_SetMMU: .equ h'003019fc
+ .export _GetKeyWait
+_GetKeyWait: .equ h'00301a0c
+ .export _Bkey_GetKeyTableInfo
+_Bkey_GetKeyTableInfo: .equ h'00301a4c
+ .export _KeyCodeConvert
+_KeyCodeConvert: .equ h'00301aa8
+ .export __Delay
+__Delay: .equ h'00301b20
+ .export _Hkey_Check_Key_SDK
+_Hkey_Check_Key_SDK: .equ h'00301ba8
+ .export _IsKeyDown
+_IsKeyDown: .equ h'00301cd4
+ .export _IsKeyUp
+_IsKeyUp: .equ h'00301d04
+ .export _GetSDKLibraryVersion
+_GetSDKLibraryVersion: .equ h'00301d50
+ .export _SetTimer
+_SetTimer: .equ h'00301d56
+ .export _KillTimer
+_KillTimer: .equ h'00301daa
+ .export _Sleep
+_Sleep: .equ h'00301dee
  .export _Bcre_cychdr
-_Bcre_cychdr: .equ h'00301d64
+_Bcre_cychdr: .equ h'00301e50
  .export _Bkey_GetKeyTableInfoJumpFunc
-_Bkey_GetKeyTableInfoJumpFunc: .equ h'00301d74
+_Bkey_GetKeyTableInfoJumpFunc: .equ h'00301e60
  .export _Bkey_GetKeyWait
-_Bkey_GetKeyWait: .equ h'00301d84
+_Bkey_GetKeyWait: .equ h'00301e70
  .export _BSrl_DummyWAIT
-_BSrl_DummyWAIT: .equ h'00301d94
+_BSrl_DummyWAIT: .equ h'00301e80
  .export _Bsta_cychdr
-_Bsta_cychdr: .equ h'00301da4
+_Bsta_cychdr: .equ h'00301e90
  .export _Bstp_cychdr
-_Bstp_cychdr: .equ h'00301db4
+_Bstp_cychdr: .equ h'00301ea0
  .export _Chattering
-_Chattering: .equ h'00301dc4
+_Chattering: .equ h'00301eb0
  .export _GLibGetAddinLibInfo
-_GLibGetAddinLibInfo: .equ h'00301dd4
+_GLibGetAddinLibInfo: .equ h'00301ec0
  .export _GLibGetOSVersionInfo
-_GLibGetOSVersionInfo: .equ h'00301de4
+_GLibGetOSVersionInfo: .equ h'00301ed0
  .export _SetIntFlagPaturn
-_SetIntFlagPaturn: .equ h'00301df4
+_SetIntFlagPaturn: .equ h'00301ee0
  .end
