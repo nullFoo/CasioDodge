@@ -5,7 +5,7 @@
 Preview of the game: https://www.youtube.com/watch?v=Af088etO-JU
 
 ## How to play?
-There is an already compiled version in this repo, "DODGE.G1A". You can just transfer this file onto your calculator with the USB cable.
+There is an already compiled version in this repo, "DODGE.G1A" (see releases or just find this file). You can just transfer this file onto your calculator with the USB cable.
 If you want to build it yourself, you will need to install the SDK.
 ### SDK installation instructions
 - Go to  https://edu.casio.com/download/index.php
