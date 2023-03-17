@@ -214,6 +214,10 @@ char quit = 0;
 
 int timer = 0;
 
+char flicker = 1;
+char damaged = 0;
+int flickerOffset = 0;
+
 #pragma endregion
 
 int Sign(int x) {
@@ -254,6 +258,8 @@ void AppQuit()
 
 #pragma region Drawing functions
 
+// draw an image (from array) that covers the whole screen
+// if drawWhite is false, white (0) pixels will be treated as transparent (i.e. not override whatever's behind them)
 void DrawImage(char sprite[128][64], char drawWhite) {
     size_t x;
     size_t y;
@@ -430,7 +436,7 @@ void DrawProjectiles()
             Bdisp_SetPoint_VRAM(x1, y1, 1);
             Bdisp_SetPoint_VRAM(x2, y2, 1);
 
-    // Bresenham's Line Generation Algorithm implementation stolen from https://www.geeksforgeeks.org/bresenhams-line-generation-algorithm/
+            // Bresenham's Line Generation Algorithm implementation stolen from https://www.geeksforgeeks.org/bresenhams-line-generation-algorithm/
             dx = abs(x2 - x1);
             dy = abs(y2 - y1);
 
@@ -471,22 +477,36 @@ void DrawProjectiles()
         }
     }
 }
+
 /** Draws the player */
 void DrawPlayer()
 {   
-    Bdisp_SetPoint_VRAM(playerX, playerY, 1);
+    if(damaged) {
+        if((timer - flickerOffset) % 10 == 0) { // damage flash animation
+            flicker = !flicker;
+        }
+    }
+    else
+        flicker = 1;
+    Bdisp_SetPoint_VRAM(playerX, playerY, flicker); // middle
     Bdisp_SetPoint_VRAM(playerX+1, playerY, 1);
     Bdisp_SetPoint_VRAM(playerX-1, playerY, 1);
     Bdisp_SetPoint_VRAM(playerX, playerY+1, 1);
     Bdisp_SetPoint_VRAM(playerX, playerY-1, 1);
 }
+void NotDamaged() {
+    damaged = false;
+    KillTimer(ID_USER_TIMER4);
+    // if the player is damaged multiple times within one second, the animation will only play for 2 seconds from the
+    // first hit. i can't really be bothered fixing this
+}
 
 void DrawHealthBar() {
     size_t i;
     for (i = 0; i < playerHealth; i++)
-    {
         Bdisp_SetPoint_VRAM(i, 63, 1);
-    }
+    for (i = 0; i < (timer % 100); i++) // bar until next attack
+        Bdisp_SetPoint_VRAM(14 + i, 1, 1); // + 14 so that it's centered (half of 28) (128-100=28) (screen is 128 wide)
     // debug bars
     // for (i = 0; i < projectileIndex; i++)
     //     Bdisp_SetPoint_VRAM(i, 1, 1);
@@ -561,6 +581,10 @@ void MoveProjectile(int arrayIndex, float x1, float y1, float x2, float y2) {
         if(IsCollidingWithPlayer((int)x1, (int)y1)) {
             // damage player
             playerHealth -= 1;
+            damaged = true;
+            flicker = false;
+            flickerOffset = timer % 10;
+            SetTimer(ID_USER_TIMER4, 2000, NotDamaged); // animate flicker for 2 second
             // destroy projectile
             projectiles[arrayIndex].enabled = false;
             return;
@@ -737,7 +761,7 @@ void SpawnNext() {
 
     projectileIndex++;
     if(projectileIndex > maxProjectiles) {
-        KillTimer(ID_USER_TIMER5); // stop this attack
+        KillTimer(ID_USER_TIMER3); // stop this attack
         currentAttack++;
         if(currentAttack >= attacksTotal)
             currentAttack = 0;
@@ -767,12 +791,20 @@ void NextProjectiles() {
             break;
     }
 
-    SetTimer(ID_USER_TIMER5, 100, SpawnNext);
+    SetTimer(ID_USER_TIMER3, 100, SpawnNext);
 }
 
 #pragma endregion
 
 #pragma endregion
+
+void GameFrame() {
+    // increment frame count
+    timer++;
+    RenderScreen();
+    Controls();
+    Physics();
+}
 
 /** Add-in entry point
  * 
@@ -804,14 +836,13 @@ int AddIn_main(int app_mode, unsigned short strip_no)
         }
     }
     srand(timer);
+    timer = 0;
 
     Bdisp_AllClr_DDVRAM();
 
-    // Set up timers for rendering and ball
-    SetTimer(ID_USER_TIMER1, 50, RenderScreen);
-    SetTimer(ID_USER_TIMER2, 50, Controls);
-    SetTimer(ID_USER_TIMER3, 50, Physics);
-    SetTimer(ID_USER_TIMER4, 5000, NextProjectiles); // should be 5000, shortened for testing
+    // Set up timers for game loop and attacks
+    SetTimer(ID_USER_TIMER1, 50, GameFrame);
+    SetTimer(ID_USER_TIMER2, 5000, NextProjectiles); // should be 5000, shortened for testing
 
     // Set quit handler
     SetQuitHandler(AppQuit);
