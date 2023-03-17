@@ -1,6 +1,8 @@
 # ![](MainIcon.bmp) Casio Dodge
  A bullet hell game written for the CASIO fx-9860GIII (should also run on GII).
  This is a work in progress, but I've got the proof of concept (movement, rendering, collisions) working so now it's just design in terms of different projectile patterns
+ 
+Preview of the game: https://www.youtube.com/watch?v=Af088etO-JU
 
 ## How to play?
 There is an already compiled version in this repo, "DODGE.G1A". You can just transfer this file onto your calculator with the USB cable.
