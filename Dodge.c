@@ -193,6 +193,7 @@ struct Projectile {
     float yVelocity;
     float xAcceleration;
     float yAcceleration;
+    int framesAlive;
 };
 struct Projectile projectiles[128];
 
@@ -205,11 +206,13 @@ int playerY = 32;
 int projectileIndex;
 int maxProjectiles;
 int currentAttack = 0;
-const int attacksTotal = 3;
+const int attacksTotal = 4;
 
 char paused = 1;
 
 char quit = 0;
+
+int timer = 0;
 
 #pragma endregion
 
@@ -508,6 +511,7 @@ void SpawnProjectile(float x, float y, float xVelocity, float yVelocity, float x
             projectiles[i].yAcceleration = yAcceleration;
             // enable it
             projectiles[i].enabled = true;
+            projectiles[i].framesAlive = 0;
             // stop the loop, we're done
             return;
         }
@@ -516,19 +520,7 @@ void SpawnProjectile(float x, float y, float xVelocity, float yVelocity, float x
 }
 
 int IsCollidingWithPlayer(int x, int y) {
-    if(x == playerX && y == playerY) return true;
-    if(x == playerX) {
-        if(y == playerY) return true;
-        if(y == playerY + 1) return true;
-        if(y == playerY - 1) return true;
-    }
-    if(y == playerY) {
-        if(x == playerX) return true;
-        if(x == playerX + 1) return true;
-        if(x == playerX - 1) return true;
-    }
-
-    return false;
+    return (abs(x - playerX) < 2 && abs(y - playerY) < 2);
 }
 
 #pragma region Timer functions
@@ -619,6 +611,12 @@ void Physics()
                 projectiles[i].enabled = false;
                 continue;
             }
+            // destroy particles that have been alive for more than an attack cycle
+            if(projectiles[i].framesAlive >= 99) { // each frame is 50ms and each cycle is 5000ms
+                // destroy projectile
+                projectiles[i].enabled = false;
+                continue;
+            }
             // move + detect player collisions
             MoveProjectile(i,
                 projectiles[i].x,
@@ -626,11 +624,11 @@ void Physics()
                 projectiles[i].x + projectiles[i].xVelocity,
                 projectiles[i].y + projectiles[i].yVelocity
             );
-            // projectiles[i].x += projectiles[i].xVelocity;
-            // projectiles[i].y += projectiles[i].yVelocity;
             // update velocity
             projectiles[i].xVelocity += projectiles[i].xAcceleration;
             projectiles[i].yVelocity += projectiles[i].yAcceleration;
+
+            projectiles[i].framesAlive++;
         }
     }
 
@@ -664,6 +662,11 @@ void Controls()
     
 }
 
+int randomInt(int max) {
+    double normalized = (double)rand() / (double)RAND_MAX;
+    return (int)(normalized * (double)max);
+}
+
 #pragma region attacks
 
 // next projectile in this attack
@@ -673,29 +676,30 @@ void SpawnNext() {
     int mod;
     int mod2;
     int xPos;
+    int yPos;
     int direction;
-    int directionX;
-    int directionY;
+    float directionX;
+    float directionY;
     int i;
     int j;
+    int xToCenter;
+    int yToCenter;
     #pragma endregion
     switch (currentAttack)
     {
-        case 0:
+        case 0: // horizontally from either side, accelerating
             mod = projectileIndex % 2;
             xPos = mod == 0 ? 1 : 128 - 1;
             direction = mod == 0 ? 1 : -1;
-            SpawnProjectile(xPos, (projectileIndex + 1) * 4, 0, 0, (float)direction * 0.1f, 0);
+            SpawnProjectile(xPos, (projectileIndex + 1) * 4, 0, 0, direction * 0.1f, 0);
             break;
-        case 1:
-            mod = projectileIndex % 2;
-            mod2 = (projectileIndex + 1) % 4;
-            directionX = mod == 0 ? 1 : -1;
-            // directionY = mod2 < 2 ? 1 : -1;
-            directionY = ((projectileIndex % 8) - 4);
-            SpawnProjectile(64, 32, (float)directionX * 2, (float)directionY, 0, 0);//Sign(-directionY) * 0.1f);
+        case 1: // circle, constant speed
+            directionX = (((projectileIndex + 8) % 16) - 8);
+            directionY = ((projectileIndex % 16) - 8);
+            SpawnProjectile(64, 32, directionX, directionY, 0, 0);
+            SpawnProjectile(64, 32, -directionX, directionY, 0, 0);
             break;
-        case 2:
+        case 2: // vertically from either side, constant speed
             if(projectileIndex % 5 == 0) {
                 if(projectileIndex % 10 == 0) {
                     for (i = 0; i < 16; i++)
@@ -711,6 +715,17 @@ void SpawnNext() {
                 }
                 
             }
+            break;
+        case 3: // random directions, accelerate back to center
+            for (i = 0; i < 16; i++)
+            {
+                xPos = randomInt(128);
+                yPos = randomInt(64);
+                directionX = (xPos - 64) * 0.01f  * 8;
+                directionY = (yPos - 32) * 0.02f * 8;
+                SpawnProjectile(64, 32, directionX, directionY, -directionX * 0.04f, -directionY * 0.04f);
+            }
+            
             break;
         default:
             mod2 = projectileIndex % 2;
@@ -744,6 +759,9 @@ void NextProjectiles() {
         case 2:
             maxProjectiles = 15;
             break;
+        case 3:
+            maxProjectiles = 2;
+            break;
         default:
             maxProjectiles = 16;
             break;
@@ -775,6 +793,7 @@ int AddIn_main(int app_mode, unsigned short strip_no)
     RenderMainMenu();
     
     while(true) { // menu
+        timer++; // we will use number of cycles until the player starts as our random seed, as it is highly unlikely to be the same
         if(IsKeyDown(KEY_CTRL_EXE)) {
             break;
         }
@@ -784,6 +803,7 @@ int AddIn_main(int app_mode, unsigned short strip_no)
             break;
         }
     }
+    srand(timer);
 
     Bdisp_AllClr_DDVRAM();
 
@@ -791,7 +811,7 @@ int AddIn_main(int app_mode, unsigned short strip_no)
     SetTimer(ID_USER_TIMER1, 50, RenderScreen);
     SetTimer(ID_USER_TIMER2, 50, Controls);
     SetTimer(ID_USER_TIMER3, 50, Physics);
-    SetTimer(ID_USER_TIMER4, 5000, NextProjectiles);
+    SetTimer(ID_USER_TIMER4, 5000, NextProjectiles); // should be 5000, shortened for testing
 
     // Set quit handler
     SetQuitHandler(AppQuit);
