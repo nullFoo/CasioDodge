@@ -220,6 +220,9 @@ char flicker = 1;
 char damaged = 0;
 int flickerOffset = 0;
 
+// a variable that will gradually decrease, making attack patterns happen faster
+float projectileDelays = 1;
+
 #pragma endregion
 
 int Sign(int x) {
@@ -935,8 +938,12 @@ void SpawnNext() {
     if(projectileIndex > maxProjectiles) {
         KillTimer(ID_USER_TIMER3); // stop this attack
         currentAttack++;
-        if(currentAttack >= attacksTotal)
+        if(currentAttack >= attacksTotal) {
             currentAttack = 0;
+            if(projectileDelays > 0.5f) { // below 0.5 some of the patterns stopped working properly
+                projectileDelays *= 0.93f;
+            }
+        }
     }
 }
 // the next "attack"
@@ -979,7 +986,9 @@ void NextProjectiles() {
             break;
     }
 
-    SetTimer(ID_USER_TIMER3, 100, SpawnNext);
+    SetTimer(ID_USER_TIMER3, (int)(100 * projectileDelays), SpawnNext);
+    KillTimer(ID_USER_TIMER2);
+    SetTimer(ID_USER_TIMER2, (int)(5000 * projectileDelays), NextProjectiles); 
 }
 
 #pragma endregion
@@ -1035,7 +1044,7 @@ int AddIn_main(int app_mode, unsigned short strip_no)
 
     // Set up timers for game loop and attacks
     SetTimer(ID_USER_TIMER1, 50, GameFrame);
-    SetTimer(ID_USER_TIMER2, 5000, NextProjectiles); // should be 5000, shortened for testing
+    SetTimer(ID_USER_TIMER2, 5000, NextProjectiles); 
 
     // Set quit handler
     SetQuitHandler(AppQuit);
