@@ -37,147 +37,147 @@ _DrawHealthBar: .equ h'00300802
  .export _SpawnProjectile
 _SpawnProjectile: .equ h'00300898
  .export _IsCollidingWithPlayer
-_IsCollidingWithPlayer: .equ h'003008ee
+_IsCollidingWithPlayer: .equ h'003008e6
  .export _RenderScreen
-_RenderScreen: .equ h'0030092c
+_RenderScreen: .equ h'00300924
  .export _MoveProjectile
-_MoveProjectile: .equ h'00300978
+_MoveProjectile: .equ h'00300970
  .export _Physics
-_Physics: .equ h'00300b94
+_Physics: .equ h'00300b88
  .export _Controls
-_Controls: .equ h'00300d4c
+_Controls: .equ h'00300d02
  .export _randomInt
-_randomInt: .equ h'00300da6
+_randomInt: .equ h'00300d5c
  .export _SpawnNext
-_SpawnNext: .equ h'00300df6
+_SpawnNext: .equ h'00300dac
  .export _NextProjectiles
-_NextProjectiles: .equ h'00301146
+_NextProjectiles: .equ h'003011ec
  .export _GameFrame
-_GameFrame: .equ h'00301192
+_GameFrame: .equ h'0030125a
  .export _AddIn_main
-_AddIn_main: .equ h'00301208
+_AddIn_main: .equ h'0030126e
  .export ___LINK_PROTECT
-___LINK_PROTECT: .equ h'00301300
+___LINK_PROTECT: .equ h'00301390
  .export _SetQuitHandler
-_SetQuitHandler: .equ h'00301304
+_SetQuitHandler: .equ h'00301394
  .export _OnAppCloseDefault
-_OnAppCloseDefault: .equ h'0030130a
+_OnAppCloseDefault: .equ h'0030139a
  .export __INITSCT_ADDIN
-__INITSCT_ADDIN: .equ h'0030135e
+__INITSCT_ADDIN: .equ h'003013ee
  .export _INIT_ADDIN_APPLICATION
-_INIT_ADDIN_APPLICATION: .equ h'003013a6
+_INIT_ADDIN_APPLICATION: .equ h'00301436
  .export __adds
-__adds: .equ h'00301422
+__adds: .equ h'003014b2
  .export __subs
-__subs: .equ h'0030141c
+__subs: .equ h'003014ac
  .export __divdr
-__divdr: .equ h'00301714
+__divdr: .equ h'003017a4
  .export __divd
-__divd: .equ h'00301728
+__divd: .equ h'003017b8
  .export __dtoi
-__dtoi: .equ h'0030188c
+__dtoi: .equ h'0030191c
  .export __dtou
-__dtou: .equ h'0030188c
+__dtou: .equ h'0030191c
  .export __ges
-__ges: .equ h'00301918
+__ges: .equ h'003019a8
  .export __gts
-__gts: .equ h'00301990
+__gts: .equ h'00301a20
  .export __itod
-__itod: .equ h'00301a08
+__itod: .equ h'00301a98
  .export __itos
-__itos: .equ h'00301a5c
+__itos: .equ h'00301aec
  .export __les
-__les: .equ h'00301ab4
+__les: .equ h'00301b44
  .export __lts
-__lts: .equ h'00301b2c
+__lts: .equ h'00301bbc
  .export __muld
-__muld: .equ h'00301c48
+__muld: .equ h'00301cd8
  .export __muls
-__muls: .equ h'00301db8
+__muls: .equ h'00301e48
  .export __negs
-__negs: .equ h'00301ef8
+__negs: .equ h'00301f88
  .export __stou
-__stou: .equ h'00301f00
+__stou: .equ h'00301f90
  .export __stoi
-__stoi: .equ h'00301f00
+__stoi: .equ h'00301f90
  .export __divls
-__divls: .equ h'00301f58
+__divls: .equ h'00301fe8
  .export __modls
-__modls: .equ h'0030200c
+__modls: .equ h'0030209c
  .export __slow_mvn
-__slow_mvn: .equ h'003020d4
+__slow_mvn: .equ h'00302164
  .export _abs
-_abs: .equ h'0030210c
+_abs: .equ h'0030219c
  .export _memcpy
-_memcpy: .equ h'0030211c
+_memcpy: .equ h'003021ac
  .export _rand
-_rand: .equ h'003021dc
+_rand: .equ h'0030226c
  .export _srand
-_srand: .equ h'00302208
+_srand: .equ h'00302298
  .export _Bdel_cychdr
-_Bdel_cychdr: .equ h'00302214
+_Bdel_cychdr: .equ h'003022a4
  .export _Bdisp_AllClr_DDVRAM
-_Bdisp_AllClr_DDVRAM: .equ h'00302224
+_Bdisp_AllClr_DDVRAM: .equ h'003022b4
  .export _Bdisp_AllClr_VRAM
-_Bdisp_AllClr_VRAM: .equ h'00302234
+_Bdisp_AllClr_VRAM: .equ h'003022c4
  .export _Bdisp_PutDisp_DD
-_Bdisp_PutDisp_DD: .equ h'00302244
+_Bdisp_PutDisp_DD: .equ h'003022d4
  .export _Bdisp_SetPoint_VRAM
-_Bdisp_SetPoint_VRAM: .equ h'00302254
+_Bdisp_SetPoint_VRAM: .equ h'003022e4
  .export _BfileFLS_CloseFile
-_BfileFLS_CloseFile: .equ h'00302264
+_BfileFLS_CloseFile: .equ h'003022f4
  .export _Bkey_Set_RepeatTime_Default
-_Bkey_Set_RepeatTime_Default: .equ h'00302274
+_Bkey_Set_RepeatTime_Default: .equ h'00302304
  .export _CallbackAtQuitMainFunction
-_CallbackAtQuitMainFunction: .equ h'00302284
+_CallbackAtQuitMainFunction: .equ h'00302314
  .export _flsFindClose
-_flsFindClose: .equ h'00302294
+_flsFindClose: .equ h'00302324
  .export _GetKey
-_GetKey: .equ h'003022a4
+_GetKey: .equ h'00302334
  .export _GLibAddinAplExecutionCheck
-_GLibAddinAplExecutionCheck: .equ h'003022b4
+_GLibAddinAplExecutionCheck: .equ h'00302344
  .export _Hmem_SetMMU
-_Hmem_SetMMU: .equ h'003022c4
+_Hmem_SetMMU: .equ h'00302354
  .export _GetKeyWait
-_GetKeyWait: .equ h'003022d4
+_GetKeyWait: .equ h'00302364
  .export _Bkey_GetKeyTableInfo
-_Bkey_GetKeyTableInfo: .equ h'00302314
+_Bkey_GetKeyTableInfo: .equ h'003023a4
  .export _KeyCodeConvert
-_KeyCodeConvert: .equ h'00302370
+_KeyCodeConvert: .equ h'00302400
  .export __Delay
-__Delay: .equ h'003023e8
+__Delay: .equ h'00302478
  .export _Hkey_Check_Key_SDK
-_Hkey_Check_Key_SDK: .equ h'00302470
+_Hkey_Check_Key_SDK: .equ h'00302500
  .export _IsKeyDown
-_IsKeyDown: .equ h'0030259c
+_IsKeyDown: .equ h'0030262c
  .export _IsKeyUp
-_IsKeyUp: .equ h'003025cc
+_IsKeyUp: .equ h'0030265c
  .export _GetSDKLibraryVersion
-_GetSDKLibraryVersion: .equ h'00302618
+_GetSDKLibraryVersion: .equ h'003026a8
  .export _SetTimer
-_SetTimer: .equ h'0030261e
+_SetTimer: .equ h'003026ae
  .export _KillTimer
-_KillTimer: .equ h'00302672
+_KillTimer: .equ h'00302702
  .export _Sleep
-_Sleep: .equ h'003026b6
+_Sleep: .equ h'00302746
  .export _Bcre_cychdr
-_Bcre_cychdr: .equ h'00302718
+_Bcre_cychdr: .equ h'003027a8
  .export _Bkey_GetKeyTableInfoJumpFunc
-_Bkey_GetKeyTableInfoJumpFunc: .equ h'00302728
+_Bkey_GetKeyTableInfoJumpFunc: .equ h'003027b8
  .export _Bkey_GetKeyWait
-_Bkey_GetKeyWait: .equ h'00302738
+_Bkey_GetKeyWait: .equ h'003027c8
  .export _BSrl_DummyWAIT
-_BSrl_DummyWAIT: .equ h'00302748
+_BSrl_DummyWAIT: .equ h'003027d8
  .export _Bsta_cychdr
-_Bsta_cychdr: .equ h'00302758
+_Bsta_cychdr: .equ h'003027e8
  .export _Bstp_cychdr
-_Bstp_cychdr: .equ h'00302768
+_Bstp_cychdr: .equ h'003027f8
  .export _Chattering
-_Chattering: .equ h'00302778
+_Chattering: .equ h'00302808
  .export _GLibGetAddinLibInfo
-_GLibGetAddinLibInfo: .equ h'00302788
+_GLibGetAddinLibInfo: .equ h'00302818
  .export _GLibGetOSVersionInfo
-_GLibGetOSVersionInfo: .equ h'00302798
+_GLibGetOSVersionInfo: .equ h'00302828
  .export _SetIntFlagPaturn
-_SetIntFlagPaturn: .equ h'003027a8
+_SetIntFlagPaturn: .equ h'00302838
  .end

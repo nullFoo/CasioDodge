@@ -8,6 +8,8 @@
 #include "dispbios.h" // Display BIOS
 #include "timer.h"    // Timer
 
+#define PI 3.1415926f; // i doubt i'll need more digits than this
+
 #pragma region KeyFixStuffMikeySentMe
 
 #define __KEYBIOS_H__
@@ -193,7 +195,6 @@ struct Projectile {
     float yVelocity;
     float xAcceleration;
     float yAcceleration;
-    int framesAlive;
     float trackingForce;
 };
 struct Projectile projectiles[128];
@@ -207,7 +208,7 @@ int playerY = 32;
 int projectileIndex;
 int maxProjectiles;
 int currentAttack = 0;
-const int attacksTotal = 6;
+const int attacksTotal = 7;
 
 char paused = 1;
 
@@ -528,7 +529,6 @@ void SpawnProjectile(float x, float y, float xVelocity, float yVelocity, float x
             projectiles[i].trackingForce = trackingForce;
             // enable it
             projectiles[i].enabled = true;
-            projectiles[i].framesAlive = 0;
             // stop the loop, we're done
             return;
         }
@@ -632,12 +632,6 @@ void Physics()
                 projectiles[i].enabled = false;
                 continue;
             }
-            // destroy particles that have been alive for more than an attack cycle
-            if(projectiles[i].framesAlive >= 99) { // each frame is 50ms and each cycle is 5000ms
-                // destroy projectile
-                projectiles[i].enabled = false;
-                continue;
-            }
             // move + detect player collisions
             MoveProjectile(i,
                 projectiles[i].x,
@@ -657,8 +651,6 @@ void Physics()
             // update velocity
             projectiles[i].xVelocity += projectiles[i].xAcceleration;
             projectiles[i].yVelocity += projectiles[i].yAcceleration;
-
-            projectiles[i].framesAlive++;
         }
     }
 
@@ -667,10 +659,10 @@ void Physics()
             playerX = 1;
         if(playerX > 127)
             playerX = 127;
-        if(playerY < 1)
-            playerY = 1;
-        if(playerY > 63)
-            playerY = 63;
+        if(playerY < 2)
+            playerY = 2;
+        if(playerY > 62)
+            playerY = 62;
 }
 
 void Controls()
@@ -714,6 +706,7 @@ void SpawnNext() {
     int j;
     int xToCenter;
     int yToCenter;
+    int radius;
     #pragma endregion
     switch (currentAttack)
     {
@@ -772,8 +765,22 @@ void SpawnNext() {
                 xPos = randomInt(128);
                 yPos = randomInt(64);
                 directionX = ((float)playerX - xPos) * 0.01f;
-                directionY = ((float)playerY - yPos) * 0.02f;
+                directionY = ((float)playerY - yPos) * 0.01f;
                 SpawnProjectile(xPos, yPos, 0, 0, directionX, directionY, 0);
+            }
+            
+            break;
+        case 6: // continuously spawn projectiles with an initial direction towards the player
+            if(projectileIndex % 10 == 0) {
+                for (i = 0; i < 16; i++)
+                {
+                    xPos = i * 8;
+                    yPos = 1;
+                    directionX = ((float)playerX - xPos) * 0.005f;
+                    directionY = ((float)playerY - yPos) * 0.005f;
+                    SpawnProjectile(xPos, yPos, 0, 0, directionX, directionY, 0);
+                }
+                
             }
             
             break;
@@ -795,7 +802,14 @@ void SpawnNext() {
 }
 // the next "attack"
 void NextProjectiles() {
+    size_t i;
     projectileIndex = 0;
+
+    for (i = 0; i < 128; i++)
+    {
+        projectiles[i].enabled = false;
+    }
+    
 
     // note maxProjectiles can't be more than 50 or it'll run into the next attack and cause issues
     switch (currentAttack)
@@ -817,6 +831,9 @@ void NextProjectiles() {
             break;
         case 5:
             maxProjectiles = 35;
+            break;
+        case 6:
+            maxProjectiles = 30;
             break;
         default:
             maxProjectiles = 16;
